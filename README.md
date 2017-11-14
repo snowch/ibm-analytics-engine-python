@@ -1,3 +1,7 @@
+
+![Travis Build](https://travis-ci.org/snowch/ibm-analytics-engine-python.svg?branch=master "Travis Build")
+
+
 ### Install:
 
 ```
