@@ -9,7 +9,7 @@ This project is a python library for working with [IBM Analytics Engine (IAE)](h
 ### Install
 
 ```
-pip3 install git+https://github.com/snowch/ibm-analytics-engine-python
+pip install ibm-analytics-engine-python
 ```
 
 ### Usage
