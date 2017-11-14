@@ -63,3 +63,9 @@ else:
 ```
 
 See more example scripts in [docs/example/](docs/example/)
+
+### Contributing
+
+Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/issues) for questions, bugs and feature requests.
+
+Pull requests are welcome!
