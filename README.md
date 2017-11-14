@@ -4,7 +4,7 @@
 
 ### Overview
 
-This project is a python library for working with [IBM Analytics Engine](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html)
+This project is a python library for working with [IBM Analytics Engine (IAE)](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html).  This project is an early prototype - consider this project to be 'alpha' or 'beta' quality.
 
 ### Install
 
@@ -14,7 +14,7 @@ pip3 install git+https://github.com/snowch/ibm-analytics-engine-python
 
 ### Usage
 
-Download IBM Cloud [apiKey](https://console.bluemix.net/docs/iam/userid_keys.html#userapikey)
+The lifecycle of an IBM Analytics Engine cluster is controller through Cloud Foundry (e.g. create, delete, status operations).  This python library requires an API key to work with the Cloud Foundry APIs.  For more information on IBM Cloud API Keys including how to create and download an API Key, see [here](https://console.bluemix.net/docs/iam/userid_keys.html#userapikey)
 
 #### Create Cluster
 
