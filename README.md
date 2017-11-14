@@ -16,7 +16,7 @@ pip3 install git+https://github.com/snowch/ibm-analytics-engine-python
 
 The lifecycle of an IBM Analytics Engine cluster is controlled through Cloud Foundry (e.g. create, delete, status operations).  This python library requires an API key to work with the Cloud Foundry APIs.  For more information on IBM Cloud API Keys including how to create and download an API Key, see [here](https://console.bluemix.net/docs/iam/userid_keys.html#userapikey)
 
-#### Create Cluster
+#### Create Cluster example
 
 This example script creates a new cluster instance:
 
@@ -61,6 +61,30 @@ if status == 'succeeded':
 else:
     print('Cluster status: {}'.format(status))
 ```
+
+#### Cluster Status example
+
+This example retrieves the Cloud Foundry status of the Cluster:
+
+```python
+import os
+import sys
+from ibm_analytics_engine import CloudFoundryAPI, IAE
+
+# set the iae modules to debug level output
+os.environ["LOG_LEVEL"] = "DEBUG"
+
+cf_api_key_filename = './yourApkKey.json'
+cluster_instance_id = 'your_cluster_id' # Can be found in the credentials json
+
+cf = CloudFoundryAPI(api_key_filename=cf_api_key_filename)
+
+iae = IAE(cf_client=cf)
+status = iae.status(cluster_instance_id)
+print(status)
+```
+
+#### Other examples
 
 See more example scripts in [docs/example/](docs/example/)
 
