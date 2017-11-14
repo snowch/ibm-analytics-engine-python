@@ -1,5 +1,6 @@
 
 ![Travis Build](https://travis-ci.org/snowch/ibm-analytics-engine-python.svg?branch=master "Travis Build")
+----
 
 ### Overview
 
@@ -17,6 +18,8 @@ Download IBM Cloud [apiKey](https://console.bluemix.net/docs/iam/userid_keys.htm
 
 #### Create Cluster
 
+This example script creates a new cluster instance:
+
 ```python
 import os
 import json
@@ -28,10 +31,10 @@ os.environ["LOG_LEVEL"] = "DEBUG"
 cf_api_key_filename = './yourApiKey.json'
 
 # The name of the cluster in your IBM Cloud space
-new_cluster_name    = 'My Analytics Engine'
+new_cluster_name = 'My Analytics Engine'
 
-# You can find your space guid with the script docs/example/list_clusters.py
-space_guid          = 'my_space_guid'
+# You can find your space guid with the script docs/example/list_orgs_and_spaces.py
+space_guid = 'my_space_guid'
 
 cf = CloudFoundryAPI(api_key_filename=cf_api_key_filename)
 iae = IAE(cf_client=cf)
