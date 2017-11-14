@@ -69,3 +69,7 @@ See more example scripts in [docs/example/](docs/example/)
 Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/issues) for questions, bugs and feature requests.
 
 Pull requests are welcome!
+
+### Related Projects
+
+This [project](https://git.ng.bluemix.net/chris.snow/iae-spark-package-customization-example/tree/master) uses the ibm-analytics-engine-python library to configure a cluster with a bootstrap customization script and then sets up a local jupyter notebook environment in docker to connect to the cluster.
