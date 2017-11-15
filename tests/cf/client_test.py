@@ -26,7 +26,7 @@ class TestCloudFoundryAPI(TestCase):
                 "description": "",
                 "createdAt": "2017-11-14T12:30+0000",
                              "apiKey": ""
-            })
+            }).encode('utf-8')
             tmp.write(data)
             tmp.flush()
             cf = CloudFoundryAPI(api_key_filename=tmp.name)
