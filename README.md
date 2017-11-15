@@ -1,6 +1,6 @@
 
 [![Build Status](https://travis-ci.org/snowch/ibm-analytics-engine-python.svg?branch=master)](https://travis-ci.org/snowch/ibm-analytics-engine-python)
-[![Coverage Status](https://img.shields.io/coveralls/coveralls-clients/coveralls-python/master.svg?style=flat-square)](https://coveralls.io/r/snowch/ibm-analytics-engine-python)
+[![Coverage Status](https://coveralls.io/repos/github/snowch/ibm-analytics-engine-python/badge.svg?branch=master)](https://coveralls.io/github/snowch/ibm-analytics-engine-python?branch=master)
 
 ----
 
