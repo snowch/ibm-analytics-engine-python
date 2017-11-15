@@ -5,6 +5,15 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-install: pip install tox-travis
-script: tox
+install: 
+  - pip install tox-travis
+  - pip install python-coveralls
+
+script:
+  - tox
+  - coverage run -m ibm_analytics_engine.iae
+  - coverage report -m
+
+after_success:
+  - coveralls
 
