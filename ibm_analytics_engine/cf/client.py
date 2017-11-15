@@ -60,12 +60,16 @@ class CloudFoundryAPI:
         self.expires_at = datetime.now() + timedelta(seconds=self.auth_token['expires_in']/60)
         self.log.debug('Authenticated to CloudFoundry')
 
-    def _request_headers(self):
+    def get_auth_token(self):
         if not hasattr(self, 'auth_token') or datetime.now() > self.expires_at:
             self.auth()
+        return self.auth_token
 
-        access_token = self.auth_token['access_token']
-        token_type = self.auth_token['token_type']
+    def _request_headers(self):
+
+        auth_token = get_auth_token()
+        access_token = auth_token['access_token']
+        token_type = auth_token['token_type']
 
         headers = {
             'accept': 'application/json',
