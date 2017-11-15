@@ -11,7 +11,7 @@ install:
 
 script:
   - tox
-  - coverage run -m ibm_analytics_engine.iae
+  - coverage run --source ibm_analytics_engine -m ibm_analytics_engine.iae
   - coverage report -m
 
 after_success:
