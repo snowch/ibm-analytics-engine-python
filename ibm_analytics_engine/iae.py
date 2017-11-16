@@ -78,10 +78,24 @@ class IAE:
     # operations on a specific cluster - requires cluster_instance_id
     #
 
+    # TODO rename to cloud foundry status
     def status(self, cluster_instance_id):
         response = self.cf_client.service_instances.status(
                 service_instance_id=cluster_instance_id)
         return response
+
+    # move method to vcap object?
+    def status2(self, vcap_json):
+        iam_token = self.cf_client.get_oidc_token()['access_token']
+        headers = {
+                'Authorization': 'Bearer {}'.format(iam_token)
+                }
+        api_url = vcap_json['cluster_management']['api_url'] + '/state'
+
+        import requests
+        response = requests.get(api_url, headers=headers) 
+
+        print(response.text)
 
     def delete_cluster(self, cluster_instance_id, recursive=False):
         try:
