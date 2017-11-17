@@ -14,17 +14,16 @@ from .logger import Logger
 """
 
 class IAEServicePlanGuid:
-    """Docstring for class IAEServicePlanGuid."""
-
+    """Service Plan Guid for IBM Analytics Engine."""
 
     LITE = 'acb06a56-fab1-4cb1-a178-c811bc676164'
-    """Service Plan Guid for Ibm Analytics Engine 'Lite' plan."""
+    """IBM Analytics Engine 'Lite' plan."""
 
     STD_HOURLY = '9ba7e645-fce1-46ad-90dc-12655bc45f9e'
-    """Service Plan Guid for Ibm Analytics Engine 'Standard Hourly' plan."""
+    """IBM Analytics Engine 'Standard Hourly' plan."""
 
     STD_MONTHLY = 'f801e166-2c73-4189-8ebb-ef7c1b586709'
-    """Service Plan Guid for Ibm Analytics Engine 'Standard Monthly' plan."""
+    """IBM Analytics Engine 'Standard Monthly' plan."""
 
     def guids():
         return [
@@ -33,13 +32,24 @@ class IAEServicePlanGuid:
             IAEServicePlanGuid.STD_MONTHLY
         ]
 
-# This class is basically stateless - it retrieve all state from cloud
-# foundry as required
 
 
 class IAE:
+    """
+    This class provides methods for working with IBM Analytics Engine (IAE) deployment operations.  
+    Many of the methods in this calls are performed by calling the Cloud Foundry Rest API (https://apidocs.cloudfoundry.org/272/).
+    The Cloud Foundry API is quite abstract, so this class provides methods names that are more meaningful for those just wanting to work with IAE.
+
+    This class does not save the state from the Cloud Foundry operations - it retrieve all state from Cloud Foundry as required.
+    """
 
     def __init__(self, cf_client):
+        """
+        Create a new instance of the IAE client.
+
+        Args:
+            cf_client (CloudFoundryAPI): The object that makes the Cloud Foundry rest API calls.
+        """
 
         assert cf_client is not None, "This action requires a CloudFoundryAPI instance"
 
@@ -52,8 +62,28 @@ class IAE:
     # generic cluster operations
     #
 
-    # status = in progress|succeeded|failed
+    # TODO create an class for the last_operation_status
     def clusters(self, space_guid, short=True, status=None):
+        """
+        Returns a list of clusters in the `space_guid`
+
+        Args:
+            space_guid (:obj:`str`): The space_guid to query for IAE clusters.
+            short (:obj:`bool`, optional): Whether to return short (brief) output.  If false, returns the full Cloud Foundry API output.
+            status (:obj:`str`, optional): Filter the return only the provided status values.
+
+        Returns:
+            :obj:`list`: If the `short=True`, returns:
+
+                [ (cluster_name, cluster_guid, last_operation_state), ...  ]
+
+                The `last_operation_status` can be:
+                
+                - `in progress`
+                - `succeeded`
+                - `failed`
+
+        """
 
         # TODO pass IAEServicePlanGuid.guids() to the filter parameter in the
         # cf api call

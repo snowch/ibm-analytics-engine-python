@@ -12,9 +12,14 @@ Welcome to IBM Analyics Engine's documentation!
 
 .. automodule:: ibm_analytics_engine
 
+.. autoclass:: IAE
+    :members: __init__, clusters
+
 .. autoclass:: IAEServicePlanGuid
     :members:
 
+.. autoclass:: CloudFoundryAPI 
+    :members: __init__
 
 Indices and tables
 ==================
