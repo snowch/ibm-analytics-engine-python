@@ -3,6 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/snowch/ibm-analytics-engine-python/badge.svg?branch=master)](https://coveralls.io/github/snowch/ibm-analytics-engine-python?branch=master)
 [![Pyversions](https://img.shields.io/pypi/pyversions/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
 [![PyPi Version](https://img.shields.io/pypi/v/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
+[![Documentation Status](http://readthedocs.org/projects/ibm-analytics-engine-python/badge/?version=latest)](http://ibm-analytics-engine-python.readthedocs.io/en/latest/?badge=latest)
 
 ----
 
