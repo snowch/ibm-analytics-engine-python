@@ -9,7 +9,7 @@ setup(
   author_email='chsnow123@gmail.com',
   url='https://github.com/snowch/ibm-analytics-engine-python',
   download_url = 'https://github.com/snowch/ibm-analytics-engine-python/archive/0.0.10.tar.gz',
-  packages = find_packages(exclude=["docs/example", "tests"]),
+  packages = find_packages(exclude=["docs/example_scripts", "docs/example", "tests"]),
   keywords = 'IBM Analytics Engine Spark Hadoop',
   install_requires=[ 'requests' ],
   test_suite='nose.collector',
