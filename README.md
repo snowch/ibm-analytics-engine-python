@@ -92,6 +92,10 @@ print(status)
 
 See more example scripts in [docs/example/](docs/example/)
 
+#### Documentation
+
+Documentation can be found on [Readthedocs](http://ibm-analytics-engine-python.readthedocs.io/en/latest/)
+
 ### Contributing
 
 Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/issues) for questions, bugs and feature requests.
