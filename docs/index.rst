@@ -10,6 +10,10 @@ Welcome to IBM Analyics Engine's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. automodule:: ibm_analytics_engine
+
+.. autoclass:: IAEServicePlanGuid
+    :members:
 
 
 Indices and tables

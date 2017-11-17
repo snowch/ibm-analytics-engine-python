@@ -3,11 +3,28 @@ from __future__ import print_function
 
 from .logger import Logger
 
+"""
+.. module:: iae
+   :platform: Unix, Windows
+   :synopsis: Classes for working with IBM Analytics Engine
+
+.. moduleauthor:: Chris Snow <chsnow123@gmail.com>
+
+
+"""
+
 class IAEServicePlanGuid:
+    """Docstring for class IAEServicePlanGuid."""
+
 
     LITE = 'acb06a56-fab1-4cb1-a178-c811bc676164'
+    """Service Plan Guid for Ibm Analytics Engine 'Lite' plan."""
+
     STD_HOURLY = '9ba7e645-fce1-46ad-90dc-12655bc45f9e'
+    """Service Plan Guid for Ibm Analytics Engine 'Standard Hourly' plan."""
+
     STD_MONTHLY = 'f801e166-2c73-4189-8ebb-ef7c1b586709'
+    """Service Plan Guid for Ibm Analytics Engine 'Standard Monthly' plan."""
 
     def guids():
         return [
