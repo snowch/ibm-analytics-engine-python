@@ -10,6 +10,8 @@ Welcome to IBM Analyics Engine's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+NOTE: This documentation is a work-in-progress.  Please come back soon ...
+
 .. automodule:: ibm_analytics_engine
 
 Example:
