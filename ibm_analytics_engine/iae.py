@@ -73,15 +73,13 @@ class IAE:
             status (:obj:`str`, optional): Filter the return only the provided status values.
 
         Returns:
-            :obj:`list`: If the `short=True`, returns:
+            :obj:`list`: If the `short=True`, this method returns: `[ (cluster_name, cluster_guid, last_operation_state), ...  ]`
 
-                [ (cluster_name, cluster_guid, last_operation_state), ...  ]
-
-                The `last_operation_status` can be:
-                
-                - `in progress`
-                - `succeeded`
-                - `failed`
+                | The `last_operation_status` may be:
+                | 
+                | - `in progress`
+                | - `succeeded`
+                | - `failed`
 
         """
 
