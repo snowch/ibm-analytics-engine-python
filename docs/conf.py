@@ -18,8 +18,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
-import sphinx_bootstrap_theme
-
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
@@ -96,10 +94,7 @@ todo_include_todos = False
 #
 #html_theme = 'alabaster'
 
-html_theme = 'bootstrap'
-html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-
-#html_theme = "classic"
+html_theme = "classic"
 #html_theme_options = {
 #    "rightsidebar": "true",
 #    "relbarbgcolor": "black"
