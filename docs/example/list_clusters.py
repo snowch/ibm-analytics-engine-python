@@ -5,7 +5,7 @@ import os
 import sys
 from ibm_analytics_engine import CloudFoundryAPI, IAE
 
-os.environ["LOG_LEVEL"] = "INFO"
+os.environ["LOG_LEVEL"] = "DEBUG"
 
 script_name = sys.argv[0]
 if len(sys.argv) != 3:

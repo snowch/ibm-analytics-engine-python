@@ -25,12 +25,7 @@ class IAEServicePlanGuid:
     STD_MONTHLY = 'f801e166-2c73-4189-8ebb-ef7c1b586709'
     """IBM Analytics Engine 'Standard Monthly' plan."""
 
-    def guids():
-        return [
-            IAEServicePlanGuid.LITE,
-            IAEServicePlanGuid.STD_HOURLY,
-            IAEServicePlanGuid.STD_MONTHLY
-        ]
+    guids = [ LITE, STD_HOURLY, STD_MONTHLY ]
 
 
 
@@ -83,15 +78,14 @@ class IAE:
 
         """
 
-        # TODO pass IAEServicePlanGuid.guids() to the filter parameter in the
-        # cf api call
+        # TODO pass IAEServicePlanGuid.guids to the filter parameter in the cf api call
         iae_instances = self.cf_client.service_instances.get_service_instances(
             space_guid)
 
         clusters = []
         for i in iae_instances:
             try:
-                if i['service_plan']['guid'] in IAEServicePlanGuid.guids():
+                if i['service_plan']['guid'] in IAEServicePlanGuid.guids:
                     if status is None or status == i['last_operation']['state']:
                         if short:
                             clusters.append(

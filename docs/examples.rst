@@ -19,11 +19,17 @@ Many operations in this library require you to specify a space guid.  You can li
 
 .. literalinclude:: example_scripts/list_orgs_and_spaces.py
 
-======================
-Create Cluster Example
-======================
+==============
+Create Cluster
+==============
 
 .. literalinclude:: example_scripts/create_cluster.py
+
+=============
+List Clusters
+=============
+
+.. literalinclude:: example_scripts/clusters.py
 
 ========================
 Jupyter Notebook Gateway
