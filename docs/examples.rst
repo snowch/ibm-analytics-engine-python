@@ -25,6 +25,12 @@ Create Cluster
 
 .. literalinclude:: example_scripts/create_cluster.py
 
+==============================
+Get/Create Cluster Credentials
+==============================
+
+.. literalinclude:: example_scripts/credentials.py
+
 =============
 List Clusters
 =============

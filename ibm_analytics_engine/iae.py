@@ -145,22 +145,17 @@ class IAE:
             self.log.exception('Unable to delete')
             return False
 
-    def create_credentials(
-            self,
-            cluster_instance_id,
-            credentials_name=None,
-            allow_multiple_credentials=False):
+    def get_or_create_credentials(self, cluster_instance_guid,):
 
-        # TODO check if credentials exist and allow_multiple_credentails=False
-        # return None
+        sk_json = self.cf_client.service_keys.get_service_keys(
+            service_instance_guid=cluster_instance_guid)
 
-        if credentials_name:
-            vcap = self.cf_client.service_keys.create_service_key(
-                cluster_instance_id, credentials_name)
-        else:
-            vcap = self.cf_client.service_keys.create_service_key(
-                cluster_instance_id)
-        return vcap
+        if sk_json['total_results'] == 0:
+            vcap_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
+        elif sk_json['total_results'] >= 1:
+            vcap_json = sk_json['resources'][0]['entity']['credentials']
+
+        return vcap_json
 
     # TODO add parameter poll=True and parameter for callback method
     def get_cluster_status(self, cluster_instance_id):
