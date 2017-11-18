@@ -60,29 +60,30 @@ class CloudFoundryAPI:
         self.expires_at = datetime.now() + timedelta(seconds=self.auth_token['expires_in']/60)
         self.log.debug('Authenticated to CloudFoundry')
 
-    def get_oidc_token(self):
-        self.log.debug('Authenticating to CloudFoundry')
+    # remove from tests until ready
+    #def get_oidc_token(self):
+    #    self.log.debug('Authenticating to CloudFoundry')
 
-        auth_token = self.get_auth_token()
-        refresh_token = auth_token['refresh_token']
-        access_token = auth_token['access_token']
-        token_type = auth_token['token_type']
+    #    auth_token = self.get_auth_token()
+    #    refresh_token = auth_token['refresh_token']
+    #    access_token = auth_token['access_token']
+    #    token_type = auth_token['token_type']
 
-        url='https://iam.bluemix.net/identity/token'
-        data="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey={}".format(self.api_key)
+    #    url='https://iam.bluemix.net/identity/token'
+    #    data="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey={}".format(self.api_key)
 
-        try:
-            #response = requests.post(url, headers=headers, data=data)
-            response = requests.post(url, data=data)
-            response.raise_for_status()
-        except requests.exceptions.RequestException as e:
-            self.log.error('Cloud Foundry Auth Response: ' + response.text)
-            raise
+    #    try:
+    #        #response = requests.post(url, headers=headers, data=data)
+    #        response = requests.post(url, data=data)
+    #        response.raise_for_status()
+    #    except requests.exceptions.RequestException as e:
+    #        self.log.error('Cloud Foundry Auth Response: ' + response.text)
+    #        raise
 
-        self.oidc_token = response.json()
-        #self.expires_at = datetime.now() + timedelta(seconds=self.auth_token['expires_in']/60)
-        self.log.debug('Authenticated to CloudFoundry')
-        return self.oidc_token
+    #    self.oidc_token = response.json()
+    #    #self.expires_at = datetime.now() + timedelta(seconds=self.auth_token['expires_in']/60)
+    #    self.log.debug('Authenticated to CloudFoundry')
+    #    return self.oidc_token
 
 
     def get_auth_token(self):
