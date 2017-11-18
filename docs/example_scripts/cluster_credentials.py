@@ -14,4 +14,3 @@ vcap_json = iae.get_or_create_credentials(cluster_instance_guid)
 
 # pretty print json
 print(json.dumps(vcap_json, indent=4, separators=(',', ': ')))
-
