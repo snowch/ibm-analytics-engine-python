@@ -25,3 +25,11 @@ Create Cluster Example
 
 .. literalinclude:: example_scripts/create_cluster.py
 
+========================
+Jupyter Notebook Gateway
+========================
+
+This is an example script for running a docker notebook that connects to the cluster using the JNBG protocol and the credentials in your vcap.json file.
+
+.. literalinclude:: example_scripts/run_docker_notebook.sh
+
