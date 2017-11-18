@@ -22,10 +22,8 @@ cluster_instance_id = iae.create_cluster(
     }
 )
 print('>> IAE cluster instance id: {}'.format(cluster_instance_id))
+
+# This method will keep polling the cluster status until the status 
+# of the cluster is 'succeeded' or 'failed'
 status = iae.get_cluster_status(cluster_instance_id)
-if status == 'succeeded':
-   credentials_json = iae.create_credentials(cluster_instance_id)
-   vcap_json = credentials_json['entity']['credentials']
-   print('>> VCAP:\n' + json.dumps(vcap_json, indent=4, separators=(',', ': ')))
-else:
-   print('>> Cluster status: {}'.format(status))
+print('>> Cluster status: {}'.format(status))
