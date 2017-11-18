@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-
-import sys
 import os
-
 from ibm_analytics_engine import CloudFoundryAPI
 
 os.environ["LOG_LEVEL"] = "INFO"
