@@ -4,6 +4,14 @@
 autopep8 --in-place --aggressive --aggressive
 ```
 
+#### BUILDING DOCS
+
+```
+cd docs/
+make clean html
+open _build/html/index.html
+```
+
 ### RELEASING
 
 ```

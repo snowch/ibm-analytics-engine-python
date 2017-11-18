@@ -1,31 +1,16 @@
-.. IBM Analyics Engine documentation master file, created by
-   sphinx-quickstart on Fri Nov 17 06:46:19 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to IBM Analyics Engine's documentation!
-===============================================
+***************************
+IBM Analyics Engine Library
+***************************
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-NOTE: This documentation is a work-in-progress.  Please come back soon ...
+   examples
+   apidocs
 
-.. automodule:: ibm_analytics_engine
+NOTE: This documentation is a work-in-progress.  It will be complete within the next few days/weeks.  Please come back soon ...
 
-Example:
-
-.. literalinclude:: example_scripts/create_cluster.py
-
-.. autoclass:: IAE
-    :members: __init__, clusters
-
-.. autoclass:: IAEServicePlanGuid
-    :members:
-
-.. autoclass:: CloudFoundryAPI 
-    :members: __init__
 
 Indices and tables
 ==================

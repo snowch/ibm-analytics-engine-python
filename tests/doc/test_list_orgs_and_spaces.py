@@ -66,7 +66,7 @@ class DocExampleScripts_Test(TestCase):
             tmp.write(data)
             tmp.flush()
         
-            os.environ['api_key_filename'] = tmp.name
+            os.environ['API_KEY_FILENAME'] = tmp.name
 
             scriptfile = os.path.abspath(os.path.join(scriptDir, 'list_orgs_and_spaces.py'))
             try:

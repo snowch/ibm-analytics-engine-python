@@ -69,9 +69,9 @@ class DocExampleScripts_Test(TestCase):
             tmp.write(data)
             tmp.flush()
         
-            os.environ['api_key_filename'] = tmp.name
-            os.environ['space_guid'] = '12345'
-            os.environ['cluster_name'] = 'My_IAE'
+            os.environ['API_KEY_FILENAME'] = tmp.name
+            os.environ['SPACE_GUID'] = '12345'
+            os.environ['CLUSTER_NAME'] = 'My_IAE'
 
             scriptfile = os.path.abspath(os.path.join(scriptDir, 'create_cluster.py'))
             try:

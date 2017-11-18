@@ -7,7 +7,7 @@ from ibm_analytics_engine import CloudFoundryAPI
 
 os.environ["LOG_LEVEL"] = "INFO"
 
-cf = CloudFoundryAPI(api_key_filename=os.environ['api_key_filename'])
+cf = CloudFoundryAPI(api_key_filename=os.environ['API_KEY_FILENAME'])
 
 spaces_json = cf.spaces.get_spaces()
 organizations_json = cf.organizations.get_organizations()

@@ -3,9 +3,10 @@ from ibm_analytics_engine import CloudFoundryAPI, IAE, IAEServicePlanGuid
 
 os.environ["LOG_LEVEL"] = "DEBUG"
 
-cf_api_key_filename = os.environ['api_key_filename']
-new_cluster_name = os.environ['cluster_name']
-space_guid = os.environ['space_guid']
+# This example gets its parameters from environment variables
+cf_api_key_filename = os.environ['API_KEY_FILENAME']
+new_cluster_name = os.environ['CLUSTER_NAME']
+space_guid = os.environ['SPACE_GUID']
 
 cf = CloudFoundryAPI(api_key_filename=cf_api_key_filename)
 iae = IAE(cf_client=cf)
