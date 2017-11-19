@@ -2,7 +2,8 @@ from unittest import TestCase
 
 from mock import Mock, MagicMock
 
-from ibm_analytics_engine import IAE, CloudFoundryAPI
+from ibm_analytics_engine import IAE, CloudFoundryAPI, IAEServicePlanGuid
+from ibm_analytics_engine.cf.service_instances import ServiceInstance
 
 class IAE_Test(TestCase):
 
@@ -22,11 +23,20 @@ class IAE_Test(TestCase):
             'my_cluster', 'my_service_plan', 'my_space_guid', {'somedata': 'default'}, poll_for_completion=False
         )
 
-    #def test_get_cluster_status(self):
-    #    mock = Mock(spec=CloudFoundryAPI)
-    #    mock.service_instances = MagicMock()
-    #    iae = IAE(cf_client=mock)
-    #    
-    #    mock.service_instances.provision.assert_called_once_with( 
-    #curl -i -X GET https://api.dataplatform.ibm.com/v2/analytics_engines/<service_instance_id>/state -H 'Authorization: Bearer <user's IAM access token>'
+    def test_list_clusters(self):
+        mock = Mock(spec=CloudFoundryAPI)
+        service_instances = Mock(spec=ServiceInstance)
+        service_instances.get_service_instances.return_value = [
+                { 'name':'abc', 'guid':'12345', 'last_operation': {'state': 'failed' }, 'service_plan': { 'guid': IAEServicePlanGuid.LITE} },
+                { 'name':'def', 'guid':'01234', 'last_operation': {'state': 'succeeded' }, 'service_plan': { 'guid': IAEServicePlanGuid.LITE} }
+                ]
+        mock.service_instances = service_instances
+
+        iae = IAE(cf_client=mock)
+        clusters = iae.clusters('my_space_guid', status='succeeded')
+
+        mock.service_instances.get_service_instances.assert_called_once_with('my_space_guid')
+
+        assert len(clusters) == 1
+        assert clusters[0] == ('def', '01234', 'succeeded')
 
