@@ -9,18 +9,18 @@ from unittest import TestCase
 from mock import Mock, MagicMock
 import mock
 
+class MockResponse:
+    def __init__(self, json_data, status_code):
+        self.json_data = json_data
+        self.status_code = status_code
+    def raise_for_status(self):
+        return
+    def json(self):
+        return self.json_data
+
 class DocExampleScripts_Test(TestCase):
 
     def mocked_requests_get(*args, **kwargs):
-        class MockResponse:
-            def __init__(self, json_data, status_code):
-                self.json_data = json_data
-                self.status_code = status_code
-            def raise_for_status(self):
-                return
-            def json(self):
-                return self.json_data
-
         print('GET: ' + args[0]) 
 
         if args[0] == 'https://api.ng.bluemix.net/v2/info':
@@ -35,15 +35,6 @@ class DocExampleScripts_Test(TestCase):
         raise RuntimeError("Should not reach here")
 
     def mocked_requests_post(*args, **kwargs):
-        class MockResponse:
-            def __init__(self, json_data, status_code):
-                self.json_data = json_data
-                self.status_code = status_code
-            def raise_for_status(self):
-                return
-            def json(self):
-                return self.json_data
-
         print('POST: ' + args[0])
 
         if args[0] == 'https://login.ng.bluemix.net/UAALoginServerWAR/oauth/token':
