@@ -37,6 +37,12 @@ Get or Create Credentials
 
 .. literalinclude:: example_scripts/cluster_credentials.py
 
+===================
+Get Clusters Status
+===================
+
+.. literalinclude:: example_scripts/cluster_status.py
+
 =============
 List Clusters
 =============
