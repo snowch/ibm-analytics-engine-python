@@ -96,13 +96,45 @@ class IAE:
                 pass
         return clusters
 
+    # TODO rename customization_script to cluster_creation_parameters
+    # TODO what is returned on error?
     def create_cluster(
             self,
             service_instance_name,
             service_plan_guid,
             space_guid,
             customization_script):
+        """
+        Create a new IAE Cluster`
 
+        Args:
+            service_instance_name (:obj:`str`): The name you would like for the Cluster.
+            service_plan_guid (:obj:`IAEServicePlanGuid`): The guid representing the type of Cluster to create.
+            space_guid (:obj:`str`): The space guid where the Cluster will be created.
+            customization_script (:obj:`dict`): A script describing the cluster creation parameters.
+            
+        An of cluster creation parameters is shown below:
+        
+        |{
+        |     "num_compute_nodes": 1,
+        |     "hardware_config": "Standard",
+        |     "software_package": "ae-1.0-spark",
+        |     "customization": [{
+        |         "name": "action1",
+        |         "type": "bootstrap",
+        |         "script": {
+        |             "source_type": "http",
+        |             "script_path": "http://path/to/your/script"
+        |             },
+        |         "script_params": []
+        |         }]
+        |}
+
+        Returns:
+            :obj:`str`: The cluster_instance_guid
+
+        """
+      
         # Create instance
         response = self.cf_client.service_instances.provision(
             service_instance_name,
