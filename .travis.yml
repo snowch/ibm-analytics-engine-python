@@ -5,6 +5,9 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+env:
+  - JYTHON=true
+  - JYTHON=false
 install: 
   - pip install tox-travis
   - pip install python-coveralls
