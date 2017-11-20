@@ -18,6 +18,9 @@ If you want to work with stable releases, install with:
 
 `pip install ibm-analytics-engine-python`
 
+The github repository for this project is here:
+
+.. _a link: https://github.com/snowch/ibm-analytics-engine-python
 
 NOTE: This documentation is a work-in-progress.  It will be complete within the next few days/weeks.  Please come back soon ...
 
