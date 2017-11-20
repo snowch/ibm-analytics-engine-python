@@ -2,6 +2,8 @@
 IBM Analyics Engine Library
 ***************************
 
+This project is a Python library for working with the IBM Analytics Engine.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
