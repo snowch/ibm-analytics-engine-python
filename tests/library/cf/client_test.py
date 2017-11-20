@@ -70,3 +70,25 @@ class TestCloudFoundryAPI_Auth(TestCase):
         with self.assertRaises(RequestException):
             cf.auth()
 
+class TestCloudFoundryAPI_Oidc(TestCase):
+
+    def mocked_requests_get(*args, **kwargs):
+        if args[0] == 'https://api.ng.bluemix.net/v2/info':
+            return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
+        raise RuntimeError("Unhandle GET request: " + args[0]) 
+
+    def mocked_requests_post(*args, **kwargs):
+        if args[0] == 'https://login.ng.bluemix.net/UAALoginServerWAR/oauth/token':
+            return MockResponse({'access_token': 'aaaaa', 'token_type': 'bearer', 'refresh_token': 'aaaaa', 'expires_in': 1209599}, 200)
+        if args[0] == 'https://iam.bluemix.net/identity/token':
+            return MockResponse(None, None, True)
+
+        raise RuntimeError("Unhandle GET request: " + args[0]) 
+
+    @patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.post', side_effect=mocked_requests_post)
+    def test_auth(self, mock_get, mock_post):
+
+        cf = CloudFoundryAPI(api_key='abcdef')
+        with self.assertRaises(RequestException):
+            cf.oidc_token()
