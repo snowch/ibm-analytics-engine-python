@@ -11,7 +11,7 @@ Service Instance Operations
 Lifecycle operations for an IAE service instance.
 
 .. autoclass:: IAE
-    :members: __init__, clusters
+    :members: __init__, create_cluster, clusters
 
 More api docs coming soon ...
 
