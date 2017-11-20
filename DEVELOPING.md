@@ -1,3 +1,7 @@
+### COVERAGE
+
+Aim for 100% coverage to ensure library will work with all specified python versions.
+
 ### FORMATTING
 
 ```
