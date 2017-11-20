@@ -54,6 +54,7 @@ class CloudFoundryAPI:
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             self.log.error('Cloud Foundry Auth Response: ' + response.text)
+            # TODO we should define a custom application exception for this
             raise
 
         self.auth_token = response.json()

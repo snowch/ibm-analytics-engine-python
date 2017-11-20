@@ -1,11 +1,13 @@
 from unittest import TestCase
+from mock import Mock, patch
+
 import sys
 import tempfile
 import os
 import json
+import requests
 
 from ibm_analytics_engine import CloudFoundryAPI
-
 
 class TestCloudFoundryAPI(TestCase):
     def test_invalid_api_key_file(self):
@@ -32,3 +34,14 @@ class TestCloudFoundryAPI(TestCase):
             cf = CloudFoundryAPI(api_key_filename=tmp.name)
         finally:
             tmp.close()  # deletes the file
+
+    @patch('requests.get')
+    def test_auth(self, mock_get):
+        mock_response = Mock()
+        http_error = requests.exceptions.RequestException()
+        mock_response.raise_for_status.side_effect = http_error
+        mock_get.return_value = mock_response
+
+        with self.assertRaises(requests.exceptions.RequestException):
+            cf = CloudFoundryAPI(api_key='abcdef')
+
