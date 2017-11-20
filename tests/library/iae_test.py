@@ -40,3 +40,16 @@ class IAE_Test(TestCase):
         assert len(clusters) == 1
         assert clusters[0] == ('def', '01234', 'succeeded')
 
+    def test_list_clusters_with_keyerror(self):
+        mock = Mock(spec=CloudFoundryAPI)
+        service_instances = Mock(spec=ServiceInstance)
+        service_instances.get_service_instances.return_value = [
+                { 'non_existent_key': None },
+                { 'non_existent_key': None },
+                ]
+        mock.service_instances = service_instances
+
+        iae = IAE(cf_client=mock)
+        clusters = iae.clusters('my_space_guid')
+        mock.service_instances.get_service_instances.assert_called_once_with('my_space_guid')
+        assert len(clusters) == 0
