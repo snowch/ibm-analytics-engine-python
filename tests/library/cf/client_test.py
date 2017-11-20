@@ -6,8 +6,9 @@ import tempfile
 import os
 import json
 import requests
-
+from requests.exceptions import RequestException
 from ibm_analytics_engine import CloudFoundryAPI
+
 
 class TestCloudFoundryAPI(TestCase):
     def test_invalid_api_key_file(self):
@@ -35,13 +36,37 @@ class TestCloudFoundryAPI(TestCase):
         finally:
             tmp.close()  # deletes the file
 
-    @patch('requests.get')
-    def test_auth(self, mock_get):
-        mock_response = Mock()
-        http_error = requests.exceptions.RequestException()
-        mock_response.raise_for_status.side_effect = http_error
-        mock_get.return_value = mock_response
+class MockResponse:
+    def __init__(self, json_data, status_code, raise_for_status_flag=False):
+        self.json_data = json_data
+        self.status_code = status_code
+        self.raise_for_status_flag = raise_for_status_flag
+    def raise_for_status(self):
+        if self.raise_for_status_flag:
+            self.text = 'some error occurred'
+            raise requests.exceptions.HTTPError()
+        else:
+            return
+    def json(self):
+        return self.json_data
 
-        with self.assertRaises(requests.exceptions.RequestException):
-            cf = CloudFoundryAPI(api_key='abcdef')
+class TestCloudFoundryAPI_Auth(TestCase):
+
+    def mocked_requests_get(*args, **kwargs):
+        if args[0] == 'https://api.ng.bluemix.net/v2/info':
+            return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
+        raise RuntimeError("Unhandle GET request: " + args[0]) 
+
+    def mocked_requests_post(*args, **kwargs):
+        if args[0] == 'https://login.ng.bluemix.net/UAALoginServerWAR/oauth/token':
+            return MockResponse(None, None, True)
+        raise RuntimeError("Unhandle GET request: " + args[0]) 
+
+    @patch('requests.get', side_effect=mocked_requests_get)
+    @patch('requests.post', side_effect=mocked_requests_post)
+    def test_auth(self, mock_get, mock_post):
+
+        cf = CloudFoundryAPI(api_key='abcdef')
+        with self.assertRaises(RequestException):
+            cf.auth()
 
