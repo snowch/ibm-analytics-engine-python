@@ -41,7 +41,13 @@ Get or Create Credentials
 Get Clusters Status
 ===================
 
+To return the Cloud Foundry status:
+
 .. literalinclude:: example_scripts/cluster_status.py
+
+To return the Data Platform API status:
+
+.. literalinclude:: example_scripts/cluster_dp_api_status.py
 
 =============
 List Clusters

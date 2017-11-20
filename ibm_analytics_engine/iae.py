@@ -1,6 +1,8 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+from .dataplatform_api import DataPlatformAPI
+
 from .logger import Logger
 
 """
@@ -50,6 +52,8 @@ class IAE:
 
         if cf_client:
             self.cf_client = cf_client
+
+        self.dataplatform_api = DataPlatformAPI(cf_client)
 
         self.log = Logger().get_logger(self.__class__.__name__)
 
@@ -153,18 +157,8 @@ class IAE:
                 service_instance_id=cluster_instance_id)
         return response
 
-    # 
-    #def status2(self, vcap_json):
-    #    iam_token = self.cf_client.get_oidc_token()['access_token']
-    #    headers = {
-    #            'Authorization': 'Bearer {}'.format(iam_token)
-    #            }
-    #    api_url = vcap_json['cluster_management']['api_url'] + '/state'
-
-    #    import requests
-    #    response = requests.get(api_url, headers=headers) 
-
-    #    print(response.text)
+    def dataplatform_status(self, vcap):
+        return self.dataplatform_api.status(vcap)
 
     def delete_cluster(self, cluster_instance_id, recursive=False):
         try:

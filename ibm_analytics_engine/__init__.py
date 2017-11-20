@@ -6,7 +6,8 @@
 
 from __future__ import absolute_import
 
-from .iae import IAE, IAEServicePlanGuid
+from .iae import IAE, IAEServicePlanGuid 
+from .dataplatform_api import DataPlatformAPI
 from .logger import Logger
 
 from .cf.client import CloudFoundryAPI
