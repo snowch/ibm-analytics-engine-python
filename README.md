@@ -9,7 +9,7 @@
 
 ### Overview
 
-This project is a python library for working with [IBM Analytics Engine (IAE)](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html).  This project is an early stages so it is changing rapidly, but apart from api changes, it should be stable enough to use.
+This project is a python library for working with [IBM Analytics Engine (IAE)](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html).  This project is still quite young and as such it is changing quite a bit, however, it should be stable enough for everyday use.
 
 #### Documentation
 
