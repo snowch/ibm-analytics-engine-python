@@ -29,7 +29,22 @@ class IAEServicePlanGuid:
 
     guids = [ LITE, STD_HOURLY, STD_MONTHLY ]
 
+class IAEClusterSpecificationExamples:
+    """Example cluster specifications"""
 
+    SINGLE_NODE_BASIC_SPARK = {
+        "num_compute_nodes": 1,
+        "hardware_config": "default",
+        "software_package": "ae-1.0-spark"
+    }
+    """Basic single node spark cluster with default hardware."""
+
+    SINGLE_NODE_BASIC_HADOOP = {
+        "num_compute_nodes": 1,
+        "hardware_config": "default",
+        "software_package": "ae-1.0-hadoop-spark"
+    }
+    """Basic single node hadoop cluster with default hardware."""
 
 class IAE:
     """
@@ -39,6 +54,7 @@ class IAE:
 
     This class does not save the state from the Cloud Foundry operations - it retrieve all state from Cloud Foundry as required.
     """
+
 
     def __init__(self, cf_client):
         """

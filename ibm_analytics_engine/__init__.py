@@ -6,7 +6,7 @@
 
 from __future__ import absolute_import
 
-from .iae import IAE, IAEServicePlanGuid 
+from .iae import IAE, IAEServicePlanGuid, IAEClusterSpecificationExamples
 from .dataplatform_api import DataPlatformAPI
 from .logger import Logger
 
