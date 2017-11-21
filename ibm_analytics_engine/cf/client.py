@@ -133,19 +133,50 @@ class CloudFoundryAPI:
         response = self._request(url=url, http_method='get', description='_get_info', create_auth_headers=False)
         return response.json()
 
-    def print_orgs_and_spaces(self):
-        spaces_json = self.spaces.get_spaces()
-        organizations_json = self.organizations.get_organizations()
-        def get_spaces(organization_guid, spaces_json):
+    def orgs_and_spaces(self, org_name=None, space_name=None):
+        if space_name is not None:
+            spaces_json = self.spaces.get_spaces(name=space_name)
+        else:
+            spaces_json = self.spaces.get_spaces()
+
+        if org_name is not None:
+            organizations_json = self.organizations.get_organizations(org_name)
+        else:
+            organizations_json = self.organizations.get_organizations()
+
+        def get_spaces_for_org(organization_guid, spaces_json):
             spaces = []
             for spc in spaces_json['resources']:
                 if spc['entity']['organization_guid'] == organization_guid:
                     spaces.append(spc)
             return spaces
 
+        orgs_and_spaces = []
         for organization in organizations_json['resources']:
-            print('name:{} organization_guid:{}'.format(organization['entity']['name'], organization['metadata']['guid']))
-            for space in get_spaces(organization['metadata']['guid'], spaces_json):
-                print('\tname:{} space_guid:{}'.format(space['entity']['name'], space['metadata']['guid']))
-            print()
+            spaces = []
+            for space in get_spaces_for_org(organization['metadata']['guid'], spaces_json):
+                spaces.append({ 'name': space['entity']['name'], 'guid': space['metadata']['guid'] })
+            orgs_and_spaces.append({ 'name': organization['entity']['name'], 'guid': organization['metadata']['guid'], 'spaces': spaces })
 
+        return orgs_and_spaces
+
+    def print_orgs_and_spaces(self, org_name=None, space_name=None):
+        oas = self.orgs_and_spaces(org_name, space_name)
+        max_len = 0
+        for o in oas:
+            if len(o['name']) > max_len:
+                max_len = len(o['name'])
+            for s in o['spaces']:
+                if len(s['name']) > max_len:
+                    max_len = len(s['name'])
+
+        for o in oas:
+            orgname=o['name']
+            orgguid=o['guid']
+            format='Org: {orgname:{width}}   {orgguid}'.format(orgname=orgname, width=max_len, orgguid=orgguid)
+            print('-' * len(format))
+            print(format)
+            for s in o['spaces']:
+                spcname=s['name']
+                spcguid=s['guid']
+                print('> Spc: {spcname:{width}} {spcguid}'.format(spcname=spcname, width=max_len, spcguid=spcguid))
