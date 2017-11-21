@@ -37,8 +37,9 @@ class TestCloudFoundryAPI(TestCase):
             tmp.close()  # deletes the file
 
 class MockResponse:
-    def __init__(self, json_data, status_code, raise_for_status_flag=False):
+    def __init__(self, json_data, status_code, raise_for_status_flag=False, text_data=''):
         self.json_data = json_data
+        self.text = text_data
         self.status_code = status_code
         self.raise_for_status_flag = raise_for_status_flag
     def raise_for_status(self):
@@ -49,6 +50,21 @@ class MockResponse:
             return
     def json(self):
         return self.json_data
+
+class TestCloudFoundryAPI_Request(TestCase):
+
+    def mocked_requests_get(*args, **kwargs):
+        if args[0] == 'https://api.ng.bluemix.net/v2/info':
+            return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
+        else:
+            return MockResponse(None, None, True, 'text_data')
+
+    @patch('requests.get', side_effect=mocked_requests_get)
+    def test_request_method(self, mock_get):
+
+        cf = CloudFoundryAPI(api_key='abcdef')
+        with self.assertRaises(RequestException):
+            cf._request('url', 'get', 'some_data', 'description', create_auth_headers=False)
 
 class TestCloudFoundryAPI_Auth(TestCase):
 
