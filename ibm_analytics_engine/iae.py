@@ -100,14 +100,13 @@ class IAE:
                 pass
         return clusters
 
-    # TODO rename customization_script to cluster_creation_parameters
     # TODO what is returned on error?
     def create_cluster(
             self,
             service_instance_name,
             service_plan_guid,
             space_guid,
-            customization_script):
+            cluster_creation_parameters):
         """
         Create a new IAE Cluster`
 
@@ -115,7 +114,7 @@ class IAE:
             service_instance_name (:obj:`str`): The name you would like for the Cluster.
             service_plan_guid (:obj:`IAEServicePlanGuid`): The guid representing the type of Cluster to create.
             space_guid (:obj:`str`): The space guid where the Cluster will be created.
-            customization_script (:obj:`dict`): A script describing the cluster creation parameters.  An example cluster creation parameters is shown below:
+            cluster_creation_parameters (:obj:`dict`): The cluster creation parameters.  An example cluster creation parameters is shown below:
         
              | {
              |     "num_compute_nodes": 1,
@@ -142,7 +141,7 @@ class IAE:
             service_instance_name,
             service_plan_guid,
             space_guid,
-            customization_script,
+            cluster_creation_parameters,
             poll_for_completion=False)
         cluster_instance_id = response['metadata']['guid']
 

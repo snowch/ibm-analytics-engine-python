@@ -17,7 +17,7 @@ class ServiceInstance_Test(TestCase):
             service_instance_name='my_cluster',
             service_plan_guid='my_service_plan',
             space_guid='my_space_guid',
-            customization_script={
+            parameters={
                 "somedata": "default",
             }
         )

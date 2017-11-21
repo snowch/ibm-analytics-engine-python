@@ -15,7 +15,7 @@ cluster_instance_id = iae.create_cluster(
     service_instance_name=new_cluster_name,
     service_plan_guid=IAEServicePlanGuid.LITE,
     space_guid=space_guid,
-    customization_script={
+    cluster_creation_parameters={
         "hardware_config": "default",
         "num_compute_nodes": 1,
         "software_package": "ae-1.0-spark",

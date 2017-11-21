@@ -30,14 +30,13 @@ class ServiceInstance:
         return response
 
     # TODO rename to create_service_instance
-    def provision(self, service_instance_name, service_plan_guid, space_guid, customization_script, poll_for_completion=False):
+    def provision(self, service_instance_name, service_plan_guid, space_guid, parameters, poll_for_completion=False):
         url = '{}/v2/service_instances?accepts_incomplete=true'.format(self.cf_client.api_endpoint)
-        # TODO iae to create data and pass data to the script
         data = {
             "name": service_instance_name, 
             "space_guid": space_guid, 
             "service_plan_guid": service_plan_guid,
-            "parameters": customization_script
+            "parameters": parameters
             }
         response = self.cf_client._request(url=url, http_method='post', data=data, description='provision')
         new_instance_guid = response.json()['metadata']['guid']
