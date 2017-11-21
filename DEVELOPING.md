@@ -28,10 +28,16 @@ python setup.py sdist upload -r pypi
 ```
 ### Testing
 
-Run all tests.
+Run all tests:
 
 ```
 tox -e py27
+```
+
+Run all tests with coverage output:
+
+```
+coverage erase && coverage run --source ibm_analytics_engine setup.py test && coverage report -m
 ```
 
 Run single test.
