@@ -10,5 +10,5 @@ from .iae import IAE, IAEServicePlanGuid, IAEClusterSpecificationExamples
 from .dataplatform_api import DataPlatformAPI
 from .logger import Logger
 
-from .cf.client import CloudFoundryAPI
+from .cf.client import CloudFoundryAPI, CloudFoundryException
 

@@ -11,6 +11,11 @@ import requests
 import json
 from datetime import datetime, timedelta
 
+class CloudFoundryException(Exception):
+    def __init__(self, message, *args):
+        self.message = message
+        super(CloudFoundryException, self).__init__(message, *args) 
+
 
 class CloudFoundryAPI:
 
@@ -118,8 +123,8 @@ class CloudFoundryAPI:
 
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
-            self.log.error('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, response.text))
-            raise
+            self.log.debug('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, response.text))
+            raise CloudFoundryException(message=response.text)
 
         try:
             self.log.debug('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, json.dumps(response.json())))

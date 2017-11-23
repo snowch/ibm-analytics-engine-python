@@ -2,7 +2,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 from .dataplatform_api import DataPlatformAPI
-
+from .cf.client import CloudFoundryException
 from .logger import Logger
 
 """
@@ -183,20 +183,21 @@ class IAE:
         try:
             self.cf_client.service_instances.delete_service_instance(
                 service_instance_id=cluster_instance_id, recursive=recursive)
-            return True
-        except Exception:
-            self.log.exception('Unable to delete')
-            return False
+        except CloudFoundryException as e:
+            self.log.debug(e.message)
+            raise 
 
     def get_or_create_credentials(self, cluster_instance_guid,):
 
-        sk_json = self.cf_client.service_keys.get_service_keys(
+        get_sk_json = self.cf_client.service_keys.get_service_keys(
             service_instance_guid=cluster_instance_guid)
 
-        if sk_json['total_results'] == 0:
-            vcap_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
-        elif sk_json['total_results'] >= 1:
-            vcap_json = sk_json['resources'][0]['entity']['credentials']
+        if get_sk_json['total_results'] >= 1:
+            # we found some credentials, so return the first set of credentials
+            return get_sk_json['resources'][0]['entity']['credentials']
+        else:
+            # create some credentials and return them
+            create_sk_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
+            return create_sk_json['entity']['credentials']
 
-        return vcap_json
 

@@ -7,7 +7,7 @@ import os
 import json
 import requests
 from requests.exceptions import RequestException
-from ibm_analytics_engine import CloudFoundryAPI
+from ibm_analytics_engine import CloudFoundryAPI, CloudFoundryException
 
 
 class TestCloudFoundryAPI(TestCase):
@@ -63,7 +63,7 @@ class TestCloudFoundryAPI_Request(TestCase):
     def test_request_method(self, mock_get):
 
         cf = CloudFoundryAPI(api_key='abcdef')
-        with self.assertRaises(RequestException):
+        with self.assertRaises(CloudFoundryException):
             cf._request('url', 'get', 'some_data', 'description', create_auth_headers=False)
 
 class TestCloudFoundryAPI_Auth(TestCase):
