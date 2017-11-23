@@ -167,10 +167,13 @@ class IAE:
     #
 
     # TODO rename to cloud foundry status
-    def status(self, cluster_instance_id):
-        response = self.cf_client.service_instances.status(
+    def status(self, cluster_instance_id, poll_while_in_progress=False):
+        if poll_while_in_progress:
+            return self.cf_client.service_instances.poll_for_completion(
+                cluster_instance_id)
+        else:
+            return self.cf_client.service_instances.status(
                 service_instance_id=cluster_instance_id)
-        return response
 
     def dataplatform_status(self, vcap):
         return self.dataplatform_api.status(vcap)
@@ -196,7 +199,3 @@ class IAE:
 
         return vcap_json
 
-    # TODO add parameter poll=True and parameter for callback method
-    def get_cluster_status(self, cluster_instance_id):
-        return self.cf_client.service_instances.poll_for_completion(
-            cluster_instance_id)

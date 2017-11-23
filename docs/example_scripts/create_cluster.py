@@ -23,7 +23,7 @@ cluster_instance_id = iae.create_cluster(
 )
 print('>> IAE cluster instance id: {}'.format(cluster_instance_id))
 
-# This method will keep polling the cluster status until the status 
-# of the cluster is 'succeeded' or 'failed'
-status = iae.get_cluster_status(cluster_instance_id)
+status = iae.status(
+    cluster_instance_id=cluster_instance_id,
+    poll_while_in_progress=True)
 print('>> Cluster status: {}'.format(status))

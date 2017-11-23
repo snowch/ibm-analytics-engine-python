@@ -45,6 +45,10 @@ To return the Cloud Foundry status:
 
 .. literalinclude:: example_scripts/cluster_status.py
 
+To poll for the Cloud Foundry status until it is 'succeeded' or 'failed':
+
+.. literalinclude:: example_scripts/cluster_status_poll.py
+
 To return the Data Platform API status:
 
 .. literalinclude:: example_scripts/cluster_dp_api_status.py
