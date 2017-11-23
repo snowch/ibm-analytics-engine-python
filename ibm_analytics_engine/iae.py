@@ -172,8 +172,9 @@ class IAE:
             return self.cf_client.service_instances.poll_for_completion(
                 cluster_instance_id)
         else:
-            return self.cf_client.service_instances.status(
+            status = self.cf_client.service_instances.status(
                 service_instance_id=cluster_instance_id)
+            return status['entity']['last_operation']['state']
 
     def dataplatform_status(self, vcap):
         return self.dataplatform_api.status(vcap)

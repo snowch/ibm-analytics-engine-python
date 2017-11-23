@@ -14,7 +14,7 @@ This project is a Python library for working with the IBM Analytics Engine.
    
 This library is progressing rapidly, it is probably better to work with the latest code base install using:
 
-`pip install git+https://github.com/snowch/ibm-analytics-engine-python`
+`pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master`
 
 If you want to work with stable releases, install with:
 
