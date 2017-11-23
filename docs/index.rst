@@ -12,7 +12,7 @@ This project is a Python library for working with the IBM Analytics Engine.
    apidocs
    
    
-This library is progressing rapidly, it is probably better to work with the latest code base install using:
+This library is progressing rapidly, it is probably better to work with the latest codebase install using:
 
 `pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master`
 
