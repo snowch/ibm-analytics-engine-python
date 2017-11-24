@@ -108,8 +108,11 @@ class IAE:
                 if i['service_plan']['guid'] in IAEServicePlanGuid.guids:
                     if status is None or status == i['last_operation']['state']:
                         if short:
-                            clusters.append(
-                                (i['name'], i['guid'], i['last_operation']['state']))
+                            clusters.append({ 
+                                      'name': i['name'], 
+                                      'guid': i['guid'], 
+                                      'state': i['last_operation']['state']
+                                    })
                         else:
                             clusters.append(i)
             except KeyError:
