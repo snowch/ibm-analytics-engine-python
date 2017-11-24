@@ -192,9 +192,9 @@ class IAE:
         if sk_json['total_results'] == 0:
             vcap_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
         elif sk_json['total_results'] >= 1:
-            vcap_json = sk_json['resources'][0]['entity']['credentials']
+            vcap_json = sk_json
 
-        return vcap_json
+        return vcap_json['resources'][0]['entity']['credentials']
 
     # TODO add parameter poll=True and parameter for callback method
     def get_cluster_status(self, cluster_instance_id):
