@@ -101,3 +101,4 @@ ENV/
 .mypy_cache/
 docs/_build/
 ipython_session.py
+vcap*.json

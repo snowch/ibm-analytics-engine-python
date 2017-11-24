@@ -2,7 +2,11 @@
 IBM Analyics Engine Library
 ***************************
 
-This project is a Python library for working with the IBM Analytics Engine.
+This project is a Python library for working with the IBM Analytics Engine.  The github repository for this library can be found here:
+
+ - https://github.com/snowch/ibm-analytics-engine-python
+
+----
 
 .. toctree::
    :maxdepth: 2
@@ -11,16 +15,20 @@ This project is a Python library for working with the IBM Analytics Engine.
    examples
    apidocs
    
+----
    
-This library is progressing rapidly, it is probably better to work with the latest code base install using:
+If you want to work with the latest version (recommended), install with:
 
-`pip install git+https://github.com/snowch/ibm-analytics-engine-python`
+.. code-block:: python
 
-If you want to work with stable releases, install with:
+   pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master
 
-`pip install ibm-analytics-engine-python`
+If you want to work with the latest stable release, install with:
 
-The github repository for this project is https://github.com/snowch/ibm-analytics-engine-python
+.. code-block:: python
+
+   pip install ibm-analytics-engine-python
+
 
 NOTE: This documentation is a work-in-progress.  It will be complete within the next few days/weeks.  Please come back soon ...
 
