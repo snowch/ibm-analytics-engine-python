@@ -102,3 +102,4 @@ ENV/
 docs/_build/
 ipython_session.py
 vcap*.json
+.DS_Store
