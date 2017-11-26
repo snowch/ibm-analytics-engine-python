@@ -138,6 +138,28 @@ class CloudFoundryAPI:
         response = self._request(url=url, http_method='get', description='_get_info', create_auth_headers=False)
         return response.json()
 
+    def space_guid(self, org_name, space_name):
+
+        assert org_name is not None, "org_name must be provided"
+        assert space_name is not None, "space_name must be provided"
+
+        org_json = self.organizations.get_organizations(org_name)
+        # Organisation names should be unique - there should only be one result
+        if org_json['total_results'] != 1:
+            raise ValueError('organization name "{}" was not found'.format(org_name))
+        org_guid = org_json['resources'][0]['metadata']['guid']
+
+        space_filter_string = 'q:organization_guid={}'.format(org_guid)
+        spaces_json = self.spaces.get_spaces(filter_string=space_filter_string)
+        if spaces_json['total_results'] == 0:
+            raise ValueError('no spaces found for orgnaization "{}"'.format(org_name))
+
+        for spc in spaces_json['resources']:
+            if spc['entity']['name'] == space_name:
+                return spc['metadata']['guid']
+
+        raise ValueError('space "{}" not found for organization "{}"'.format(space_name, org_name))
+
     def orgs_and_spaces(self, org_name=None, space_name=None):
         if space_name is not None:
             spaces_json = self.spaces.get_spaces(name=space_name)
