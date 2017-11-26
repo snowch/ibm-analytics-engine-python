@@ -16,17 +16,11 @@ The lifecycle of an IBM Analytics Engine cluster is controlled through Cloud Fou
 
 Ensure you have installed this library.
 
-If you want to use the latest version (recommended), install with:
+Install with:
 
 .. code-block:: python
 
    pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master
-
-If you want to use the latest stable release, install with:
-
-.. code-block:: python
-
-   pip install ibm-analytics-engine-python
 
 ====================
 List Orgs and Spaces
