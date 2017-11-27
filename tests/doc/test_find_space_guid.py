@@ -50,8 +50,9 @@ class DocExampleScripts_Test(TestCase):
             }).encode('utf-8')
             tmp.write(data)
             tmp.flush()
-        
-            os.environ['API_KEY_FILENAME'] = tmp.name
+       
+            # The script sees this variable
+            your_api_key_filename = tmp.name
 
             scriptfile = os.path.abspath(os.path.join(scriptDir, 'find_space_guid.py'))
             try:
