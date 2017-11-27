@@ -22,6 +22,20 @@ Install with:
 
    pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master
 
+=======
+Logging
+=======
+
+Log level is controlled with the environment variable ``LOG_LEVEL``.  
+
+You may set it programmatically in your code:
+
+.. code-block:: python
+
+   os.environ["LOG_LEVEL"] = "DEBUG"
+
+Valid values are ERROR, WARNING, INFO, DEBUG
+
 =======================
 Finding your space guid
 =======================

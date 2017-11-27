@@ -1,3 +1,4 @@
+import sys
 import os
 import tempfile
 import json
@@ -49,14 +50,14 @@ class DocExampleScripts_Test(TestCase):
             tmp.write(data)
             tmp.flush()
         
-            your_api_key_filename = tmp.name
+            from ibm_analytics_engine import cf
+            class MonkeyPatchedCloudFoundryAPI(cf.client.CloudFoundryAPI):
+                def __init__(self, api_key_filename=None):
+                    super(self.__class__, self).__init__(api_key_filename=tmp.name)
+            cf.client.CloudFoundryAPI = MonkeyPatchedCloudFoundryAPI
 
-            scriptfile = os.path.abspath(os.path.join(scriptDir, 'list_orgs_and_spaces.py'))
-            try:
-                # Python 2x
-                execfile(scriptfile)
-            except:
-                # Python 3x
-                exec(open(scriptfile).read())
+            sys.path.append(os.path.abspath(os.path.join(scriptDir)))
+            import list_orgs_and_spaces
+            
         finally:
             tmp.close()  # deletes the file
