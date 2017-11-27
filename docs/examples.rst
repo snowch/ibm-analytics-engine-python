@@ -56,7 +56,7 @@ To return the Cloud Foundry status:
 
 .. literalinclude:: example_scripts/cluster_status.py
 
-To poll for the Cloud Foundry status until it is 'succeeded' or 'failed':
+Alternative option to poll for the Cloud Foundry status until it is 'succeeded' or 'failed':
 
 .. literalinclude:: example_scripts/cluster_status_poll.py
 
