@@ -1,3 +1,4 @@
+import sys
 import os
 import tempfile
 import json
@@ -50,16 +51,21 @@ class DocExampleScripts_Test(TestCase):
             }).encode('utf-8')
             tmp.write(data)
             tmp.flush()
-       
-            # The script sees this variable
-            your_api_key_filename = tmp.name
 
-            scriptfile = os.path.abspath(os.path.join(scriptDir, 'find_space_guid.py'))
-            try:
-                # Python 2x
-                execfile(scriptfile)
-            except:
-                # Python 3x
-                exec(open(scriptfile).read())
+            from ibm_analytics_engine import cf
+            class MonkeyPatchedCloudFoundryAPI(cf.client.CloudFoundryAPI):
+                def __init__(self, api_key_filename=None):
+                    super(self.__class__, self).__init__(api_key_filename=tmp.name)
+            cf.client.CloudFoundryAPI = MonkeyPatchedCloudFoundryAPI
+
+            sys.path.append(os.path.abspath(os.path.join(scriptDir)))
+            import find_space_guid
+
+            #try:
+            #    # Python 2x
+            #    execfile(scriptfile, globals(), locals())
+            #except:
+            #    # Python 3x
+            #    exec(open(scriptfile).read(), globals(), locals())
         finally:
             tmp.close()  # deletes the file
