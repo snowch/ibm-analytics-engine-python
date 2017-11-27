@@ -22,13 +22,17 @@ Install with:
 
    pip install --upgrade git+https://github.com/snowch/ibm-analytics-engine-python@master
 
-====================
-List Orgs and Spaces
-====================
+=======================
+Finding your space guid
+=======================
 
 Many operations in this library require you to specify a space guid.  You can list the spaces guids for your account using this example:
 
 .. literalinclude:: example_scripts/list_orgs_and_spaces.py
+
+Alternatively, if you know your organisation name and space name, you can use the following:
+
+.. literalinclude:: example_scripts/find_space_guid.py
 
 ==============
 Create Cluster
