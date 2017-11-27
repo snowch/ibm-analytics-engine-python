@@ -23,10 +23,10 @@ class DocExampleScripts_Test(TestCase):
     def mocked_requests_get(*args, **kwargs):
         if args[0] == 'https://api.ng.bluemix.net/v2/info':
             return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
-        if args[0] == 'https://api.ng.bluemix.net/v2/organizations?q=name:my_org_name':
+        if args[0] == 'https://api.ng.bluemix.net/v2/organizations?q=name:your_org_name':
             return MockResponse({ "total_results": 1, "resources": [{ "metadata": { "guid": '1234567890' }}]}, 200)
         if args[0] == 'https://api.ng.bluemix.net/v2/spaces?q:organization_guid=1234567890':
-            return MockResponse({ "total_results": 1, "resources": [{ "metadata": { "guid": '1234567890' }, "entity": { "name": "my_space_name" }}]}, 200)
+            return MockResponse({ "total_results": 1, "resources": [{ "metadata": { "guid": '1234567890' }, "entity": { "name": "your_space_name" }}]}, 200)
 
         raise RuntimeError("Should not reach here: url {} ".format(args[0]))
 
