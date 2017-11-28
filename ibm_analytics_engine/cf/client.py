@@ -17,7 +17,7 @@ class CloudFoundryException(Exception):
         super(CloudFoundryException, self).__init__(message, *args) 
 
 
-class CloudFoundryAPI:
+class CloudFoundryAPI(object):
 
     def __init__(self, api_key=None, api_key_filename=None, api_endpoint='https://api.ng.bluemix.net', provision_poll_timeout_mins=30):
 
@@ -25,6 +25,10 @@ class CloudFoundryAPI:
         self.provision_poll_timeout_mins = provision_poll_timeout_mins 
 
         assert api_key is not None or api_key_filename is not None, "You must provide a value for api_key or for api_key_filename"
+
+        # allow tests to override the api_key_filename parameter
+        if hasattr(CloudFoundryAPI, 'api_key_filename') and CloudFoundryAPI is not None:
+            api_key_filename = CloudFoundryAPI.api_key_filename
 
         if api_key_filename is not None:
             try:

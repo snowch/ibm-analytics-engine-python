@@ -50,14 +50,20 @@ class DocExampleScripts_Test(TestCase):
             tmp.write(data)
             tmp.flush()
         
-            from ibm_analytics_engine import cf
-            class MonkeyPatchedCloudFoundryAPI(cf.client.CloudFoundryAPI):
-                def __init__(self, api_key_filename=None):
-                    super(self.__class__, self).__init__(api_key_filename=tmp.name)
-            cf.client.CloudFoundryAPI = MonkeyPatchedCloudFoundryAPI
+            #from ibm_analytics_engine import cf
+            #class MonkeyPatchedCloudFoundryAPI(cf.client.CloudFoundryAPI):
+            #    def __init__(self, api_key_filename=None):
+            #        cf.client.CloudFoundryAPI.__init__(self, api_key_filename=tmp.name)
+
+            #cf.client.CloudFoundryAPI = MonkeyPatchedCloudFoundryAPI
+
+            from ibm_analytics_engine import CloudFoundryAPI
+            CloudFoundryAPI.api_key_filename = tmp.name
 
             sys.path.append(os.path.abspath(os.path.join(scriptDir)))
             import list_orgs_and_spaces
+
+            del CloudFoundryAPI.api_key_filename
             
         finally:
             tmp.close()  # deletes the file
