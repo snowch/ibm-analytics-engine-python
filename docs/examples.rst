@@ -34,7 +34,7 @@ You may set it programmatically in your code:
 
    os.environ["LOG_LEVEL"] = "DEBUG"
 
-Valid values are ERROR, WARNING, INFO, DEBUG
+Typical valid values are ERROR, WARNING, INFO, DEBUG.  For a full list of values, see: https://docs.python.org/3/library/logging.html#logging-levels
 
 =======================
 Finding your space guid
@@ -52,7 +52,11 @@ Alternatively, if you know your organisation name and space name, you can use th
 Create Cluster
 ==============
 
+This example shows how to create a basic spark cluster.
+
 .. literalinclude:: example_scripts/create_cluster.py
+
+The above example creates a LITE cluster.  See :ref:`IBMServicePlanGuid` for the available service plan guids.
 
 ==============
 Delete Cluster
@@ -66,9 +70,9 @@ Get or Create Credentials
 
 .. literalinclude:: example_scripts/cluster_credentials.py
 
-===================
-Get Clusters Status
-===================
+==================
+Get Cluster Status
+==================
 
 To return the Cloud Foundry status:
 

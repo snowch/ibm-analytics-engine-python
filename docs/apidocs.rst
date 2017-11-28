@@ -44,6 +44,11 @@ Cloud Foundry Operations
 Utility Classes
 ===============
 
+IBMServicePlanGuid
+------------------
+
+.. _IBMServicePlanGuid-ref:
+
 .. autoclass:: IAEServicePlanGuid
     :members:
 
