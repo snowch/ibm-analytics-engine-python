@@ -52,13 +52,6 @@ class DocExampleScripts_Test(TestCase):
             tmp.write(data)
             tmp.flush()
 
-            #from ibm_analytics_engine import cf
-            #class MonkeyPatchedCloudFoundryAPI(cf.client.CloudFoundryAPI):
-            #    def __init__(self, api_key_filename=None):
-            #        cf.client.CloudFoundryAPI.__init__(self, api_key_filename=tmp.name)
-
-            #cf.client.CloudFoundryAPI = MonkeyPatchedCloudFoundryAPI
-
             from ibm_analytics_engine import CloudFoundryAPI
             CloudFoundryAPI.api_key_filename = tmp.name
 
