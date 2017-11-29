@@ -20,7 +20,12 @@ class TestCloudFoundryAPI(TestCase):
         with self.assertRaises(error_class):
             cf = CloudFoundryAPI(api_key_filename='does_not_exist')
 
-    def test_api_key_file(self):
+    def mocked_requests_get(*args, **kwargs):
+        if args[0] == 'https://api.ng.bluemix.net/v2/info':
+            return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
+
+    @patch('requests.get', side_effect=mocked_requests_get)
+    def test_api_key_file(self, mock_get):
         # delete=True means the file will be deleted on close
         tmp = tempfile.NamedTemporaryFile(delete=True)
         try:
