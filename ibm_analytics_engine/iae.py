@@ -162,21 +162,22 @@ class IAE:
             space_guid,
             cluster_creation_parameters,
             poll_for_completion=False)
-        cluster_instance_id = response['metadata']['guid']
 
-        return cluster_instance_id
+        cluster_instance_guid = response['metadata']['guid']
+
+        return cluster_instance_guid
     #
     # operations on a specific cluster - requires cluster_instance_id
     #
 
     # TODO rename to cloud foundry status
-    def status(self, cluster_instance_id, poll_while_in_progress=False):
+    def status(self, cluster_instance_guid, poll_while_in_progress=False):
         if poll_while_in_progress:
             return self.cf_client.service_instances.poll_for_completion(
-                cluster_instance_id)
+                cluster_instance_guid)
         else:
             status = self.cf_client.service_instances.status(
-                service_instance_id=cluster_instance_id)
+                service_instance_id=cluster_instance_guid)
             return status['entity']['last_operation']['state']
 
     def dataplatform_status(self, vcap):

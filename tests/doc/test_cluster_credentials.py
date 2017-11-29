@@ -60,10 +60,10 @@ class DocExampleScripts_Test(TestCase):
             sys.path.append(os.path.abspath(os.path.join(scriptDir)))
             import cluster_credentials
             
-            del CloudFoundryAPI.api_key_filename
-
         finally:
             tmp.close()  # deletes the file
+            if hasattr(CloudFoundryAPI, 'api_key_filename'):
+                del CloudFoundryAPI.api_key_filename
 
 class DocExampleScripts2_Test(TestCase):
     """ Test getting credentials when none exist """
@@ -108,6 +108,7 @@ class DocExampleScripts2_Test(TestCase):
             sys.path.append(os.path.abspath(os.path.join(scriptDir)))
             import cluster_credentials
             
-            del CloudFoundryAPI.api_key_filename
         finally:
             tmp.close()  # deletes the file
+            if hasattr(CloudFoundryAPI, 'api_key_filename'):
+                del CloudFoundryAPI.api_key_filename
