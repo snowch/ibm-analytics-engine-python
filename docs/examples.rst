@@ -85,7 +85,7 @@ To return the Cloud Foundry status:
 
 .. literalinclude:: example_scripts/cluster_status.py
 
-Alternative option to poll for the Cloud Foundry status until it is 'succeeded' or 'failed':
+Alternative option to poll for the Cloud Foundry status.  Note that this approach can block for many minutes while a cluster is being provisioned.  While it is blocked, there is no progress output:  
 
 .. literalinclude:: example_scripts/cluster_status_poll.py
 
