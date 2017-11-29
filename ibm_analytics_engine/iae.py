@@ -182,10 +182,10 @@ class IAE:
     def dataplatform_status(self, vcap):
         return self.dataplatform_api.status(vcap)
 
-    def delete_cluster(self, cluster_instance_id, recursive=False):
+    def delete_cluster(self, cluster_instance_guid, recursive=False):
         try:
             self.cf_client.service_instances.delete_service_instance(
-                service_instance_id=cluster_instance_id, recursive=recursive)
+                service_instance_id=cluster_instance_guid, recursive=recursive)
         except CloudFoundryException as e:
             self.log.debug(e.message)
             raise 
