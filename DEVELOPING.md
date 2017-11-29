@@ -49,5 +49,11 @@ pytest tests/doc/test_create_cluster.py
 Or, with tox:
 
 ```
+tox -e py27 -- tests/doc/test_list_orgs_and_spaces.py
+```
+
+Or:
+
+```
 tox -e py27 -- tests/doc/test_list_orgs_and_spaces.py:DocExampleScripts_Test.test
 ```

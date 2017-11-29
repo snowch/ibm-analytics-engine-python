@@ -25,9 +25,6 @@ class DocExampleScripts_Test(TestCase):
     def mocked_requests_get(*args, **kwargs):
         if args[0] == 'https://api.ng.bluemix.net/v2/info':
             return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
-        if args[0] == 'https://api.ng.bluemix.net/v2/spaces/1234567890/summary':
-            return MockResponse(
-                {"guid": "1234567890", "name": "1234567890", "services": [{"guid": "1234567890", "name": "MYIAE", "last_operation": {"type": "create", "state": "succeeded"}}]}, 200)
         if args[0] == 'https://api.ng.bluemix.net/v2/service_keys?q=service_instance_guid:12345-12345-12345-12345':
             return MockResponse(
                 {"total_results": 1, "resources": [{"metadata": {"guid": "1234567890"}, "entity": {"name": "Credentials-1", "service_instance_guid": "1234567890", "credentials": {"cluster_management": {"api_url": "https://api.dataplatform.ibm.com/v2/analytics_engines/1234567890", "instance_id": "1234567890"}, "cluster": {"cluster_id": "20171117-222539-855-AibSBgvm", "user": "clsadmin", "password": "XXXXXXX", "service_endpoints": {"ambari_console": "https://testhostname:9443", "livy": "https://testhostname:8443/gateway/default/livy/v1/batches", "spark_history_server": "https://testhostname:8443/gateway/default/sparkhistory", "oozie_rest": "https://testhostname:8443/gateway/default/oozie", "hive_jdbc": "jdbc:hive2://testhostname:8443/;ssl=true;transportMode=http;httpPath=gateway/default/hive", "notebook_gateway_websocket": "wss://testhostname:8443/gateway/default/jkgws/", "notebook_gateway": "https://testhostname:8443/gateway/default/jkg/", "webhdfs": "https://testhostname:8443/gateway/default/webhdfs/v1/", "ssh": "ssh clsadmin@testhostname", "spark_sql": "jdbc:hive2://testhostname:8443/;ssl=true;transportMode=http;httpPath=gateway/default/spark"}, "service_endpoints_ip": {"ambari_console": "https://1.1.1.1:9443", "livy": "https://1.1.1.1:8443/gateway/default/livy/v1/batches", "spark_history_server": "https://1.1.1.1:8443/gateway/default/sparkhistory", "oozie_rest": "https://1.1.1.1:8443/gateway/default/oozie", "hive_jdbc": "jdbc:hive2://1.1.1.1:8443/;ssl=true;transportMode=http;httpPath=gateway/default/hive", "notebook_gateway_websocket": "wss://1.1.1.1:8443/gateway/default/jkgws/", "notebook_gateway": "https://1.1.1.1:8443/gateway/default/jkg/", "webhdfs": "https://1.1.1.1:8443/gateway/default/webhdfs/v1/", "ssh": "ssh clsadmin@1.1.1.1", "spark_sql": "jdbc:hive2://1.1.1.1:8443/;ssl=true;transportMode=http;httpPath=gateway/default/spark"}}}}}]}, 200)
@@ -72,16 +69,11 @@ class DocExampleScripts2_Test(TestCase):
     """ Test getting credentials when none exist """
 
     def mocked_requests_get(*args, **kwargs):
-
         if args[0] == 'https://api.ng.bluemix.net/v2/info':
             return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
-        if args[0] == 'https://api.ng.bluemix.net/v2/spaces/1234567890/summary':
-            return MockResponse(
-                {"guid": "1234567890", "name": "1234567890", "apps": [], "services": [{"guid": "1234567890", "name": "MYIAE", "bound_app_count": 0, "last_operation": {"type": "create", "state": "succeeded", "description": "", "updated_at": "2017-11-17T22:47:00Z", "created_at": "2017-11-17T22:25:52Z"}, "dashboard_url": "https://ibmae-ui.mybluemix.net/analytics/engines/paygo/jumpout?apiKey=1234567890&instanceId=1234567890", "service_plan": {"guid": "1234567890", "name": "lite", "service": {"guid": "1234567890", "label": "IBMAnalyticsEngine", "provider": None, "version": None}}}]}, 200)
-        if args[0] == 'https://api.ng.bluemix.net/v2/service_keys?q=service_instance_guid:1234567890':
+        if args[0] == 'https://api.ng.bluemix.net/v2/service_keys?q=service_instance_guid:12345-12345-12345-12345':
             return MockResponse(
                 {"total_results": 0, "total_pages": 1, "prev_url": None, "next_url": None, "resources": []}, 200)
-
         raise RuntimeError("Unhandle GET request: " + args[0]) 
 
     def mocked_requests_post(*args, **kwargs):
@@ -93,7 +85,6 @@ class DocExampleScripts2_Test(TestCase):
         if args[0] == 'https://api.ng.bluemix.net/v2/service_keys':
             return MockResponse(
                 { "metadata": { "guid": "1234567890", "url": "/v2/service_keys/1234567890", "created_at": "2016-06-08T16:41:22Z", "updated_at": "2016-06-08T16:41:26Z" }, "entity": { "name": "name-127", "service_instance_guid": "1234567890", "credentials": { "creds-key-3": "creds-val-3" }, "service_instance_url": "/v2/service_instances/1234567890" } }, 200)
-
         raise RuntimeError("Unhandle POST request: " + args[0]) 
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
