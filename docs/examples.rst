@@ -70,6 +70,13 @@ Get or Create Credentials
 
 .. literalinclude:: example_scripts/cluster_credentials.py
 
+To save the returned data to disk, you can do something like:
+
+.. code-block:: python
+
+   with open('./vcap.json', 'w') as vcap_file:
+       vcap_file.write(vcap_formatted)
+
 ==================
 Get Cluster Status
 ==================
