@@ -1,13 +1,11 @@
-import os
-from ibm_analytics_engine import CloudFoundryAPI, IAE
+from ibm_analytics_engine.cf.client import CloudFoundryAPI
+from ibm_analytics_engine import IAE
 
-os.environ["LOG_LEVEL"] = "INFO"
+cf = CloudFoundryAPI(api_key_filename='your_api_key_filename')
 
-CF_API_KEY_FILENAME=os.environ['API_KEY_FILENAME']
-SPACE_GUID=os.environ['SPACE_GUID']
+space_guid = cf.space_guid(org_name='your_org_name', space_name='your_space_name')
 
-cf = CloudFoundryAPI(api_key_filename=CF_API_KEY_FILENAME)
 iae = IAE(cf_client=cf)
 
-for i in iae.clusters(SPACE_GUID):
+for i in iae.clusters(space_guid=space_guid):
     print(i)
