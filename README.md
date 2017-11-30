@@ -15,6 +15,8 @@ This project is a python library for working with [IBM Analytics Engine (IAE)](h
 
 Documentation can be found on [readthedocs](http://ibm-analytics-engine-python.readthedocs.io/en/latest/)
 
+An [example notebook](docs/example_notebooks/CreateCluster.ipynb) that uses this library
+
 ### Contributing
 
 Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/issues) for questions, bugs and feature requests.
