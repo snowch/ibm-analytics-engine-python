@@ -74,6 +74,9 @@ class DocExampleScripts2_Test(TestCase):
         if args[0] == 'https://api.ng.bluemix.net/v2/service_keys?q=service_instance_guid:12345-12345-12345-12345':
             return MockResponse(
                 {"total_results": 0, "total_pages": 1, "prev_url": None, "next_url": None, "resources": []}, 200)
+        elif args[0] == 'https://api.ng.bluemix.net/v2/service_instances/12345-12345-12345-12345':
+            return MockResponse(
+                    {"metadata": {"guid": "1234567890"}, "entity": {"name": "AE", "credentials": {}, "service_plan_guid": "acb06a56-fab1-4cb1-a178-c811bc676164", "space_guid": "1234567890", "last_operation": {"type": "create", "state": "succeeded"}}}, 200)
         raise RuntimeError("Unhandle GET request: " + args[0]) 
 
     def mocked_requests_post(*args, **kwargs):

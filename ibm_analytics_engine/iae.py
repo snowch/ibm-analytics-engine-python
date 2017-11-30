@@ -200,6 +200,10 @@ class IAE:
             # we found some credentials, so return the first set of credentials
             return get_sk_json['resources'][0]['entity']['credentials']
         else:
+            status = self.status(cluster_instance_guid=cluster_instance_guid)
+            if status != 'succeeded':
+                raise RuntimeError("Cluster status is '{}' but must be 'succeeded' to create credentials.".format(status))
+
             # create some credentials and return them
             create_sk_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
             return create_sk_json['entity']['credentials']
