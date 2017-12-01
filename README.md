@@ -17,12 +17,10 @@ Documentation can be found on [readthedocs](http://ibm-analytics-engine-python.r
 
 An [example notebook](docs/example_notebooks/CreateCluster.ipynb) that uses this library
 
-### Contributing
+### Support
 
 Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/issues) for questions, bugs and feature requests.
 
+### Contributing
+
 Pull requests are welcome!
-
-### Related Projects
-
-This [project](https://git.ng.bluemix.net/chris.snow/iae-spark-package-customization-example/tree/master) uses the ibm-analytics-engine-python library to configure a cluster with a bootstrap customization script and then sets up a local jupyter notebook environment in docker to connect to the cluster.
