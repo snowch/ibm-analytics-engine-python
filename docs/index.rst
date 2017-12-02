@@ -15,6 +15,7 @@ This project is a Python library for working with the IBM Analytics Engine.  The
    examples
    apidocs
    example_notebooks/CreateCluster
+   example_notebooks/DockerExampleNB2KG
    
 ----
    
