@@ -34,7 +34,12 @@ class CloudFoundryAPI(object):
             try:
                 with open(api_key_filename, 'r') as api_file:
                     d = json.load(api_file)
-                    self.api_key = d['apiKey']
+                    try:
+                        self.api_key = d['apikey']
+                    except KeyError:
+                        # The attibute name used to be
+                        self.api_key = d['apiKey']
+
             except:
                 self.log.error('Error retrieving "apiKey" from file {}'.format(api_key_filename))
                 raise
