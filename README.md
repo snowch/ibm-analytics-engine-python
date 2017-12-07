@@ -17,7 +17,10 @@ This project is a python library (SDK) for working with [IBM Analytics Engine (I
 
 Documentation can be found on [readthedocs](http://ibm-analytics-engine-python.readthedocs.io/en/latest/)
 
-An [example notebook](docs/example_notebooks/CreateCluster.ipynb) that uses this library
+Some example notebooks using this library:
+
+ - [Creating a Cluster](docs/example_notebooks/CreateCluster.ipynb)
+ - [Connecting a Jupyter Notebook](docs/example_notebooks/DockerExampleNB2KG.ipynb)
 
 ### Support
 
