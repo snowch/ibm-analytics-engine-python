@@ -21,6 +21,8 @@ Some example notebooks using this library:
 
  - [Creating a Cluster](docs/example_notebooks/CreateCluster.ipynb)
  - [Connecting a Jupyter Notebook](docs/example_notebooks/DockerExampleNB2KG.ipynb)
+ 
+See a recording of these notebooks [in action](https://m.youtube.com/watch?t=1s&v=3plYcRHvV9w).  The recording has a few editing issues and no audio, but you should get the idea.
 
 ### Support
 
