@@ -1,6 +1,6 @@
 
 [![Build Status](https://travis-ci.org/snowch/ibm-analytics-engine-python.svg?branch=master)](https://travis-ci.org/snowch/ibm-analytics-engine-python)
-[![Issues](https://img.shields.io/github/issues/snowch/ibm-analytics-engine-python/bug.svg)](q=is%3Aissue+is%3Aopen+label%3A"bug")
+[![Issues](https://img.shields.io/github/issues/snowch/ibm-analytics-engine-python/bug.svg)](https://github.com/snowch/ibm-analytics-engine-python/issues?q=is%3Aissue+is%3Aopen+label%3A"bug")
 [![Coverage Status](https://coveralls.io/repos/github/snowch/ibm-analytics-engine-python/badge.svg?branch=master)](https://coveralls.io/github/snowch/ibm-analytics-engine-python?branch=master)
 [![Pyversions](https://img.shields.io/pypi/pyversions/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
 [![PyPi Version](https://img.shields.io/pypi/v/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
