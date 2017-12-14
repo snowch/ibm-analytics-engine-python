@@ -4,6 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/snowch/ibm-analytics-engine-python/badge.svg?branch=master)](https://coveralls.io/github/snowch/ibm-analytics-engine-python?branch=master)
 [![Pyversions](https://img.shields.io/pypi/pyversions/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
 [![PyPi Version](https://img.shields.io/pypi/v/ibm-analytics-engine-python.svg?style=flat-square)](https://pypi.python.org/pypi/ibm-analytics-engine-python)
+
+
+[![StackOverflow](http://img.shields.io/badge/stackoverflow-analytics%20engine%20python%20sdk-blue.svg)]( http://stackoverflow.com/questions/tagged/analytics-engine-python-sdk )
 [![Documentation Status](http://readthedocs.org/projects/ibm-analytics-engine-python/badge/?version=latest)](http://ibm-analytics-engine-python.readthedocs.io/en/latest/?badge=latest)
 [![Apache2 license](http://img.shields.io/badge/license-apache2-brightgreen.svg)](http://opensource.org/licenses/Apache-2.0)
 
