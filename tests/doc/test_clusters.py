@@ -26,7 +26,7 @@ class DocExampleScripts_Test(TestCase):
             return MockResponse({"authorization_endpoint": "https://login.ng.bluemix.net/UAALoginServerWAR"}, 200)
         if args[0] == 'https://api.ng.bluemix.net/v2/organizations?q=name:your_org_name':
             return MockResponse({ "total_results": 1, "resources": [{ "metadata": { "guid": '1234567890' }}]}, 200)
-        if args[0] == 'https://api.ng.bluemix.net/v2/spaces?q:organization_guid=1234567890':
+        if args[0] == 'https://api.ng.bluemix.net/v2/spaces?q=organization_guid:1234567890':
             return MockResponse({ "total_results": 1, "resources": [{ "metadata": { "guid": '1234567890' }, "entity": { "name": "your_space_name" }}]}, 200)
         if args[0] == 'https://api.ng.bluemix.net/v2/spaces/1234567890/summary':
             return MockResponse(
