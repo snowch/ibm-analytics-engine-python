@@ -158,7 +158,7 @@ class CloudFoundryAPI(object):
             raise ValueError('organization name "{}" was not found'.format(org_name))
         org_guid = org_json['resources'][0]['metadata']['guid']
 
-        space_filter_string = 'q:organization_guid={}'.format(org_guid)
+        space_filter_string = 'q=organization_guid:{}'.format(org_guid)
         spaces_json = self.spaces.get_spaces(filter_string=space_filter_string)
         if spaces_json['total_results'] == 0:
             raise ValueError('no spaces found for orgnaization "{}"'.format(org_name))
