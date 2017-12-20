@@ -227,6 +227,8 @@ class AmbariOperations:
 
     def __init__(self, vcap=None, vcap_filename=None):
 
+        self.log = Logger().get_logger(self.__class__.__name__)
+
         assert (vcap is not None or vcap_filename is not None) \
            and (vcap is None or vcap_filename is None), \
                 "You must only provide a vcap object OR vcap_filename parameter"
@@ -235,11 +237,14 @@ class AmbariOperations:
             import json
             vcap = json.load(open(vcap_filename))
 
-        self.USER         = vcap['cluster']['user']
-        self.PASSWORD     = vcap['cluster']['password']
-        self.AMBARI_URL   = vcap['cluster']['service_endpoints']['ambari_console']
-        self.CLUSTER_ID   = vcap['cluster']['cluster_id']
-        self.CLUSTER_NAME = 'AnalyticsEngine'
+        try:
+            self.USER         = vcap['cluster']['user']
+            self.PASSWORD     = vcap['cluster']['password']
+            self.AMBARI_URL   = vcap['cluster']['service_endpoints']['ambari_console']
+            self.CLUSTER_ID   = vcap['cluster']['cluster_id']
+        except KeyError as e:
+            self.log.error("Couldn't parse vcap credential json - attribute {} not found.".format(str(e)))
+            raise
 
         # ensure we are compatible with python 2 and 3
         try:
