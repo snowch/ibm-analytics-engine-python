@@ -235,16 +235,17 @@ class AmbariOperations:
             import json
             vcap = json.load(open(vcap_filename))
 
-        try:
-            from urllib.parse import urlparse
-        except ImportError:
-            from urlparse import urlparse
-
         self.USER         = vcap['cluster']['user']
         self.PASSWORD     = vcap['cluster']['password']
         self.AMBARI_URL   = vcap['cluster']['service_endpoints']['ambari_console']
         self.CLUSTER_ID   = vcap['cluster']['cluster_id']
         self.CLUSTER_NAME = 'AnalyticsEngine'
+
+        # ensure we are compatible with python 2 and 3
+        try:
+            from urllib.parse import urlparse
+        except ImportError:
+            from urlparse import urlparse
 
         url = urlparse(self.AMBARI_URL)
 
