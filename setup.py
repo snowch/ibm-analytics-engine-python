@@ -11,7 +11,7 @@ setup(
   download_url = 'https://github.com/snowch/ibm-analytics-engine-python/archive/0.0.dev14.tar.gz',
   packages = find_packages(exclude=["docs/example_scripts", "docs/example", "tests"]),
   keywords = 'IBM Analytics Engine Spark Hadoop',
-  install_requires=[ 'requests' ],
+  install_requires=[ 'requests', 'python-ambariclient' ],
   test_suite='nose.collector',
   tests_require=['nose'],
   classifiers=[

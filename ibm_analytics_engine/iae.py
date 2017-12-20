@@ -154,7 +154,7 @@ class IAE:
             :obj:`str`: The cluster_instance_guid
 
         """
-      
+
         # Create instance
         response = self.cf_client.service_instances.provision(
             service_instance_name,
@@ -189,7 +189,7 @@ class IAE:
                 service_instance_id=cluster_instance_guid, recursive=recursive)
         except CloudFoundryException as e:
             self.log.debug(e.message)
-            raise 
+            raise
 
     def get_or_create_credentials(self, cluster_instance_guid,):
 
@@ -207,4 +207,60 @@ class IAE:
             # create some credentials and return them
             create_sk_json = self.cf_client.service_keys.create_service_key(cluster_instance_guid)
             return create_sk_json['entity']['credentials']
+
+    def print_all_clusters(self):
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+
+        for org in self.cf_client.orgs_and_spaces():
+            for space in org['spaces']:
+                print('ORG {} | SPACE {}'.format(org['name'], space['name']))
+                print()
+
+                clusters = self.clusters(space_guid=space['guid'])
+                if len(clusters) > 0:
+                    for cluster in clusters:
+                        pp.pprint(cluster)
+                        print()
+
+class AmbariOperations:
+
+    def __init__(self, vcap):
+        from future.standard_library import install_aliases
+        install_aliases()
+        from urllib.parse import urlparse
+
+        self.USER         = vcap['cluster']['user']
+        self.PASSWORD     = vcap['cluster']['password']
+        self.AMBARI_URL   = vcap['cluster']['service_endpoints']['ambari_console']
+        self.CLUSTER_ID   = vcap['cluster']['cluster_id']
+        self.CLUSTER_NAME = 'AnalyticsEngine'
+
+        url = urlparse(self.AMBARI_URL)
+
+        self.HOST = url.hostname
+        self.PORT = url.port
+        self.PROTOCOL = url.scheme
+
+        from ambariclient.client import Ambari
+        self.ambari_client = Ambari(self.HOST, 
+                                    port=self.PORT, 
+                                    username=self.USER, 
+                                    password=self.PASSWORD, 
+                                    protocol=self.PROTOCOL)
+
+    def get_namenode_hostname(self):
+
+        # gets first cluster - there will only be one
+        CLUSTER_NAME = self.ambari_client.clusters.next().cluster_name 
+
+        namenode_hc = self.ambari_client \
+                            .clusters(CLUSTER_NAME) \
+                            .services('HDFS') \
+                            .components('NAMENODE') \
+                            .host_components
+
+        namenode_host_name = [hc.host_name for hc in namenode_hc if hc.host_name][0]
+        return namenode_host_name
+
 
