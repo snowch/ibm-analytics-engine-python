@@ -196,6 +196,21 @@ class CloudFoundryAPI(object):
 
         return orgs_and_spaces
 
+    def print_clusters_in_all_spaces(self):
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+
+        for org in self.cf.orgs_and_spaces():
+            for space in org['spaces']:
+                print('ORG {} | SPACE {}'.format(org['name'], space['name']))
+                print()
+
+                clusters = iae.clusters(space_guid=space['guid'])
+                if len(clusters) > 0:
+                    for cluster in clusters:
+                        pp.pprint(cluster)
+                        print()
+
     def print_orgs_and_spaces(self, org_name=None, space_name=None):
         oas = self.orgs_and_spaces(org_name, space_name)
         max_len = 0

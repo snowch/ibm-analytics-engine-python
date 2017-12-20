@@ -235,9 +235,10 @@ class AmbariOperations:
             import json
             vcap = json.load(open(vcap_filename))
 
-        from future.standard_library import install_aliases
-        install_aliases()
-        from urllib.parse import urlparse
+        try:
+            from urllib.parse import urlparse
+        except ImportError:
+            from urlparse import urlparse
 
         self.USER         = vcap['cluster']['user']
         self.PASSWORD     = vcap['cluster']['password']
