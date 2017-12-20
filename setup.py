@@ -1,9 +1,7 @@
 from setuptools import setup, find_packages
 
-
 setup(
   name='ibm-analytics-engine-python',
-  version='master',
   description="IBM Analytics Engine library",
   author='Chris Snow',
   author_email='chsnow123@gmail.com',
@@ -14,7 +12,6 @@ setup(
   test_suite='nose.collector',
   tests_require=['nose'],
   classifiers=[
-    "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 2.7",
