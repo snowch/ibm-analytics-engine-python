@@ -225,7 +225,16 @@ class IAE:
 
 class AmbariOperations:
 
-    def __init__(self, vcap):
+    def __init__(self, vcap=None, vcap_filename=None):
+
+        assert (vcap is not None or vcap_filename is not None) \
+           and (vcap is None or vcap_filename is None), \
+                "You must only provide a vcap object OR vcap_filename parameter"
+
+        if vcap_filename is not None:
+            import json
+            vcap = json.load(open(vcap_filename))
+
         from future.standard_library import install_aliases
         install_aliases()
         from urllib.parse import urlparse
