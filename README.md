@@ -11,7 +11,7 @@
 
 ----
 
-**WARNING: This project is deprecated due to a change in the API's used for managing IBM Analytics Engine.**
+**WARNING: This project is deprecated due to a change in the API's used to manage IBM Analytics Engine.**
 
 ----
 
