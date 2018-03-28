@@ -11,6 +11,10 @@
 
 ----
 
+**WARNING: This project is deprecated due to a change in the API's used for managing IBM Analytics Engine.**
+
+----
+
 ### Overview
 
 This project is a python library (SDK) for working with [IBM Analytics Engine (IAE)](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html).  
