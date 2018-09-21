@@ -1,6 +1,12 @@
+### DEVELOPMENT ENVIRONMENT
+
+I use [Jupyterlab](https://jupyterlab.readthedocs.io/en/stable/) for development.
+
+See [Development](./Development.ipynb) for an example development notebook.
+
 ### COVERAGE
 
-Aim for 100% coverage to ensure library will work with all specified python versions.
+Aim for 100% test coverage to ensure library will work with all specified python versions.
 
 ### FORMATTING
 
