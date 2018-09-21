@@ -8,6 +8,7 @@ import time
 import requests
 import json
 
+# API Docs https://console.stage1.bluemix.net/apidocs/resource-controller
 class ResourceInstance:
 
     def __init__(self, client, region):
@@ -66,6 +67,7 @@ class ResourceInstance:
         return status
 
 
+    # See https://console.bluemix.net/docs/services/AnalyticsEngine/Retrieve-service-credentials-and-service-end-points.html#obtaining-the-credentials-using-the-ibm-cloud-rest-api
     def create_credentials(self, instance_id, key_name, service_instance_name, role):
         url = self.region.rc_endpoint() + '/v1/resource_keys'
         data = {
