@@ -30,7 +30,9 @@ class ResourceInstance:
         #Note this api should probably be in a higher level python module
         return
     
-    # TODO this is using the cloud foundry api - convert to resource groups
+    # TODO this is using the cloud foundry api - convert to:
+    # resource groups or https://console.bluemix.net/docs/services/AnalyticsEngine/track-instance-provisioning.html#tracking-the-status-of-the-cluster-provisioning apis
+    
     def poll_for_completion(self, service_instance_id):
         url = '{}/v2/service_instances/{}'.format(self.cf_client.api_endpoint, service_instance_id)
         headers = self.cf_client._request_headers()
