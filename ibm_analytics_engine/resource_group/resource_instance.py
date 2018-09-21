@@ -16,9 +16,7 @@ class ResourceInstance:
 
         url = 'https://resource-controller.ng.bluemix.net/v1/resource_instances'
         response = self.cf_client._request(url=url, http_method='post', description='create_resource_instances', data=data)
-        print(response.text)
-        print(response)
-
+        return response.json()
 
     def poll_for_completion(self, service_instance_id):
         url = '{}/v2/service_instances/{}'.format(self.cf_client.api_endpoint, service_instance_id)
