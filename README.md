@@ -36,4 +36,6 @@ Please create an [issue](https://github.com/snowch/ibm-analytics-engine-python/i
 
 ### Contributing
 
+See [DEVELOPING.md](./DEVELOPING.md)
+
 Pull requests are welcome!
