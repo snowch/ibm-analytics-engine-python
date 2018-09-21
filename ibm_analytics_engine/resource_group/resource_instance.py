@@ -13,11 +13,24 @@ class ResourceInstance:
         self.cf_client = cf_client
 
     def create(self, data):
-
         url = 'https://resource-controller.ng.bluemix.net/v1/resource_instances'
         response = self.cf_client._request(url=url, http_method='post', description='create_resource_instances', data=data)
         return response.json()
-
+    
+    def list(self):
+        #TODO - https://console.bluemix.net/docs/services/hyper-protect-dbaas/curl_list_serv_inst.html#listing-a-service-instance
+        return
+    
+    def delete(self, instance_id):
+        #TODO - https://console.bluemix.net/docs/services/hyper-protect-dbaas/curl_delete_serv_inst.html#deleting-a-service-instance
+        return
+    
+    def cluster_status(self, instance_id):
+        #TODO - https://console.bluemix.net/docs/services/AnalyticsEngine/track-instance-provisioning.html#tracking-the-status-of-the-cluster-provisioning
+        #Note this api should probably be in a higher level python module
+        return
+    
+    # TODO this is using the cloud foundry api - convert to resource groups
     def poll_for_completion(self, service_instance_id):
         url = '{}/v2/service_instances/{}'.format(self.cf_client.api_endpoint, service_instance_id)
         headers = self.cf_client._request_headers()
