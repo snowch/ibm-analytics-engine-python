@@ -66,13 +66,15 @@ class ResourceInstance:
         return status
 
 
-    def get_credentials(self, instance_id):
-        # TODO
-        # curl -X POST \
-        #  https://resource-controller.bluemix.net/v1/resource_keys \
-        #  -H 'accept: application/json' \
-        #  -H 'authorization: Bearer <IAM bearer token>' \
-        #  -H 'content-type: application/json' \
-        #  -d '{"name":"<key name>","source_crn":"<service instance crn>", "parameters":{"role_crn":"<crn of access role>"} }'
-        return
+    def create_credentials(self, instance_id, key_name, service_instance_name, role):
+        url = self.region.rc_endpoint() + '/v1/resource_keys'
+        data = {
+            "name": key_name,
+            "source_crn": service_instance_name,
+            "parameters": {
+                "role_crn": role
+                }
+            }
+        response = self.client._request(url=url, http_method='post', description='create_credentials', data=data)
+        return response.json()
         
