@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from .logger import Logger
+from .endpoints import IBMCloudEndpoints
 
 from datetime import datetime, timedelta
 import time
@@ -9,61 +10,69 @@ import json
 
 class ResourceInstance:
 
-    def __init__(self, cf_client):
-        self.cf_client = cf_client
+    def __init__(self, client, region):
+        self.client = client
+        self.region = region
 
     def create(self, data):
-        url = 'https://resource-controller.ng.bluemix.net/v1/resource_instances'
-        response = self.cf_client._request(url=url, http_method='post', description='create_resource_instances', data=data)
+        url = self.region.rc_endpoint() + '/v1/resource_instances'
+        response = self.client._request(url=url, http_method='post', description='create_resource_instances', data=data)
         return response.json()
     
     def list(self):
-        #TODO - https://console.bluemix.net/docs/services/hyper-protect-dbaas/curl_list_serv_inst.html#listing-a-service-instance
+        #TODO - 
         return
     
     def delete(self, instance_id):
-        #TODO - https://console.bluemix.net/docs/services/hyper-protect-dbaas/curl_delete_serv_inst.html#deleting-a-service-instance
+        #TODO - 
         return
     
     def cluster_status(self, instance_id):
-        #TODO - https://console.bluemix.net/docs/services/AnalyticsEngine/track-instance-provisioning.html#tracking-the-status-of-the-cluster-provisioning
-        #Note this api should probably be in a higher level python module
-        return
+        url = self.region.iae_endpoint() + '/v2/analytics_engines/{}/state'.format(instance_id)
+        response = self.client._request(url=url, http_method='get', description='cluster_status')
+        return response.json()
     
-    # TODO this is using the cloud foundry api - convert to:
-    # resource groups or https://console.bluemix.net/docs/services/AnalyticsEngine/track-instance-provisioning.html#tracking-the-status-of-the-cluster-provisioning apis
-    
-    def poll_for_completion(self, service_instance_id):
-        url = '{}/v2/service_instances/{}'.format(self.cf_client.api_endpoint, service_instance_id)
-        headers = self.cf_client._request_headers()
+    def poll_for_completion(self, instance_id):
+        url = self.region.iae_endpoint() + '/v2/analytics_engines/{}/state'.format(instance_id)
+        headers = self.client._request_headers()
+        
+        provision_poll_timeout_mins = self.client.provision_poll_timeout_mins
         
         poll_start = datetime.now()
+        
+        # Status codes: https://console.bluemix.net/docs/services/AnalyticsEngine/track-instance-provisioning.html#tracking-the-status-of-the-cluster-provisioning
+        status = 'Preparing'
+        while status == 'Preparing':
 
-        # Status codes: https://apidocs.cloudfoundry.org/245/service_instances/creating_a_service_instance.html
-        status = 'in progress'
-        while status == 'in progress':
-
-            if (datetime.now() - poll_start).seconds > (self.cf_client.provision_poll_timeout_mins * 60):
-                raise TimeoutError('Failed to provision with {} minutes'.format(self.cf_client.provision_poll_timeout_mins))
+            if (datetime.now() - poll_start).seconds > (provision_poll_timeout_mins * 60):
+                raise TimeoutError('Failed to provision with {} minutes'.format(provision_poll_timeout_mins))
 
             try:
                 response = requests.get(url, headers=headers)
                 response.raise_for_status()
 
                 d = response.json()
-                last_operation = d['entity']['last_operation']
-                self.cf_client.log.debug('Poll status response for service_instance_guid: {} : {}'.format(service_instance_id,  str(last_operation)))
-
-                if last_operation['type'] == 'create':
-                    status = last_operation['state']
+                status = d['state']
+       
             except requests.exceptions.RequestException as e:
-                self.cf_client.log.error('Service Provision Status Response: ' + response.text)
+                self.client.log.error('Service Provision Status Response: ' + response.text)
                 raise
 
             time.sleep(30)
 
-        self.cf_client.log.debug('provisioning completed: ' + status)
+        self.client.log.debug('provisioning completed: ' + status)
 
-        # returns succeeded or failed
+        # returns current non-Preparing status
         return status
 
+
+    def get_credentials(self, instance_id):
+        # TODO
+        # curl -X POST \
+        #  https://resource-controller.bluemix.net/v1/resource_keys \
+        #  -H 'accept: application/json' \
+        #  -H 'authorization: Bearer <IAM bearer token>' \
+        #  -H 'content-type: application/json' \
+        #  -d '{"name":"<key name>","source_crn":"<service instance crn>", "parameters":{"role_crn":"<crn of access role>"} }'
+        return
+        

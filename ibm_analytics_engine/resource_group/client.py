@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from .logger import Logger
+from .region import Region
 
 from .resource_instance import ResourceInstance
 #from .service_keys import ServiceKey
@@ -16,20 +17,19 @@ class ResourceGroupException(Exception):
         self.message = message
         super( ResourceGroupException, self).__init__(message, *args) 
 
-
 class ResourceGroupAPI(object):
 
     def __init__(self, 
-                 api_key=None, 
-                 api_key_filename=None, 
-                 api_endpoint='https://api.ng.bluemix.net', 
-                 iam_endpoint='https://iam.ng.bluemix.net',
-                 provision_poll_timeout_mins=30):
+                 api_key = None, 
+                 api_key_filename = None,
+                 region = 'us-south',
+                 provision_poll_timeout_mins = 30):
 
         self.log = Logger().get_logger(self.__class__.__name__)
         self.provision_poll_timeout_mins = provision_poll_timeout_mins 
 
         assert api_key is not None or api_key_filename is not None, "You must provide a value for api_key or for api_key_filename"
+        assert isinstance(region, basestring), "region parameter must be of type string"
 
         # allow tests to override the api_key_filename parameter
         if hasattr(ResourceGroupAPI, 'api_key_filename') and ResourceGroupAPI is not None:
@@ -51,11 +51,11 @@ class ResourceGroupAPI(object):
         else:
             self.api_key = api_key
 
-        self.api_endpoint = api_endpoint
-        self.iam_endpoint = iam_endpoint
-        #self.info = self._get_info()
+        self.region = Region(region)
+        self.api_endpoint = self.region.api_endpoint()
+        self.iam_endpoint = self.region.iam_endpoint()
 
-        self.resource_instance = ResourceInstance(self)
+        self.resource_instance = ResourceInstance(self, self.region)
 
 
     def _auth(self):
