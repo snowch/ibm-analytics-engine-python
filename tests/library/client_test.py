@@ -7,10 +7,10 @@ import os
 import json
 import requests
 from requests.exceptions import RequestException
-from ibm_analytics_engine import ResourceGroupAPI, ResourceGroupException
+from ibm_analytics_engine import AnalyticsEngine, AnalyticsEngineException
 
 
-class TestResourceGroupAPI(TestCase):
+class TestAnalyticsEngine(TestCase):
     
     def test_invalid_api_key_file(self):
         try:
@@ -19,7 +19,7 @@ class TestResourceGroupAPI(TestCase):
             error_class = FileNotFoundError
 
         with self.assertRaises(error_class):
-            cf = ResourceGroupAPI(api_key_filename='does_not_exist')
+            cf = AnalyticsEngine(api_key_filename='does_not_exist')
 
     def test_api_key_file(self):
         # delete=True means the file will be deleted on close
@@ -33,7 +33,7 @@ class TestResourceGroupAPI(TestCase):
             }).encode('utf-8')
             tmp.write(data)
             tmp.flush()
-            cf = ResourceGroupAPI(api_key_filename=tmp.name)
+            cf = AnalyticsEngine(api_key_filename=tmp.name)
         finally:
             tmp.close()  # deletes the file
 

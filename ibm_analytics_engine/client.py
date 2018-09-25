@@ -1,23 +1,30 @@
 from __future__ import absolute_import
 
 from .logger import Logger
-from .region import Region
+from .ibm_cloud_region import Region
 
-from .resource_instance import ResourceInstance
-#from .service_keys import ServiceKey
-#from .spaces import Space
-#from .organizations import Organization
+from .resource_controller import ResourceController
+from .analytics_engines import AnalyticsEngines
+
 
 import requests
 import json
 from datetime import datetime, timedelta
 
-class ResourceGroupException(Exception):
+import sys
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    string_types = str
+else:
+    string_types = basestring
+
+class AnalyticsEngineException(Exception):
     def __init__(self, message, *args):
         self.message = message
-        super( ResourceGroupException, self).__init__(message, *args) 
+        super( AnalyticsEngineException, self).__init__(message, *args) 
 
-class ResourceGroupAPI(object):
+class AnalyticsEngine(object):
 
     def __init__(self, 
                  api_key = None, 
@@ -29,11 +36,12 @@ class ResourceGroupAPI(object):
         self.provision_poll_timeout_mins = provision_poll_timeout_mins 
 
         assert api_key is not None or api_key_filename is not None, "You must provide a value for api_key or for api_key_filename"
-        assert isinstance(region, basestring), "region parameter must be of type string"
+        
+        assert isinstance(region, string_types), "region parameter must be of type string"
 
         # allow tests to override the api_key_filename parameter
-        if hasattr(ResourceGroupAPI, 'api_key_filename') and ResourceGroupAPI is not None:
-            api_key_filename = ResourceGroupAPI.api_key_filename
+        if hasattr(AnalyticsEngine, 'api_key_filename') and AnalyticsEngine is not None:
+            api_key_filename = AnalyticsEngine.api_key_filename
 
         if api_key_filename is not None:
             try:
@@ -55,7 +63,8 @@ class ResourceGroupAPI(object):
         self.api_endpoint = self.region.api_endpoint()
         self.iam_endpoint = self.region.iam_endpoint()
 
-        self.resource_instance = ResourceInstance(self, self.region)
+        self.resource_controller = ResourceController(self, self.region)
+        self.analytics_engines = AnalyticsEngines(self, self.region)
 
 
     def _auth(self):
@@ -115,7 +124,7 @@ class ResourceGroupAPI(object):
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
             self.log.debug('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, response.text))
-            raise ResourceGroupException(message=response.text)
+            raise AnalyticsEngineException(message=response.text)
 
         try:
             self.log.debug('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, json.dumps(response.json())))
@@ -123,3 +132,14 @@ class ResourceGroupAPI(object):
             self.log.debug('{} : {} {} : {} {}'.format(description, http_method, url, response.status_code, response.text))
 
         return response
+
+        
+    def create(self, data):
+        return self.resource_controller.create(data)
+        
+    def cluster_status(self, instance_id, wait_until_finished_preparing = False):
+        if wait_until_finished_preparing is True:
+            # Wait until status is no longer 'Preparing' 
+            return self.analytics_engines.poll_for_completion(instance_id)
+        else:
+            return self.analytics_engines.cluster_status(instance_id)

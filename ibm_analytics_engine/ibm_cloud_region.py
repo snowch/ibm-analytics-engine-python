@@ -1,9 +1,17 @@
+import sys
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    string_types = str
+else:
+    string_types = basestring
+
 class Region:
     
     _valid_regions = ['us-south', 'uk-south']
     
     def __init__(self, region):
-        assert isinstance(region, basestring), "region parameter must be a string"
+        assert isinstance(region, string_types), "region parameter must be a string"
         assert region in self._valid_regions, "Invalid region '{}'.  Supported regions: {}.".format(region, self._valid_regions)
         
         self.region = region
