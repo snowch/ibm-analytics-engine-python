@@ -6,7 +6,7 @@ setup(
   author='Chris Snow',
   author_email='chsnow123@gmail.com',
   url='https://github.com/snowch/ibm-analytics-engine-python',
-  packages = find_packages(exclude=["docs/example_scripts", "docs/example", "tests"]),
+  packages = ['ibm_analytics_engine'],
   keywords = 'IBM Analytics Engine Spark Hadoop',
   install_requires=[ 'requests', 'python-ambariclient' ],
   test_suite='nose.collector',
