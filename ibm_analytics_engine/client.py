@@ -108,18 +108,23 @@ class AnalyticsEngine(object):
             }
         return headers
 
-    def _request(self, url, http_method='get', data=None, description='', create_auth_headers=True):
+    def _request(self, url, http_method='get', data=None, description='', create_auth_headers=True, additional_headers={}):
         if create_auth_headers:
             headers = self._request_headers()
         else:
             headers = {}
+            
+        all_headers = {}
+        all_headers.update(headers)
+        all_headers.update(additional_headers)
+        
         try:
             if http_method == 'get':
-                response = requests.get(url, headers=headers)
+                response = requests.get(url, headers=all_headers)
             elif http_method == 'post':
-                response = requests.post(url, headers=headers, data=json.dumps(data))
+                response = requests.post(url, headers=all_headers, data=json.dumps(data))
             elif http_method == 'delete':
-                response = requests.delete(url, headers=headers)
+                response = requests.delete(url, headers=all_headers)
 
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
@@ -133,6 +138,14 @@ class AnalyticsEngine(object):
 
         return response
 
+    # https://console.bluemix.net/apidocs/iam-identity-token-api#get-details-of-an-api-key-by-its-value-or-id-secre
+    def _get_account_id(self):
+        url = self.iam_endpoint + '/v1/apikeys/details'
+        headers = { 
+            "IAM-Apikey": self.api_key,
+            }
+        response = self._request(url=url, http_method='get', description='_get_account_id', additional_headers=headers)
+        return response.json()['account_id']
         
     def create(self, data):
         return self.resource_controller.create(data)
