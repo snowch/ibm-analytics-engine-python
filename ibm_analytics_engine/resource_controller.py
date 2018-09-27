@@ -24,8 +24,14 @@ class ResourceController:
         response = self.client._request(url=url, http_method='post', description='create_resource_instances', data=data)
         return response.json()
     
-    def list(self):
-        #TODO - 
+    def list(self, region_id=None, resource_group=None, resource_plan_id=None):
+        
+        if region_id is None:
+            region_id = self.region
+            
+        if resource_plan_id
+            
+        #TODO - return the json response from the API call 
         return
     
     def delete(self, id):
@@ -33,8 +39,11 @@ class ResourceController:
         urlsafe_id = id.replace('/', '%2F')
         
         url = self.region.rc_endpoint() + '/v1/resource_instances/' + urlsafe_id
-        response = self.client._request(url=url, http_method='delete', description='delete')
-        return response # only response code - no json
+        self.client._request(url=url, http_method='delete', description='delete')
+        
+        # if _request fails, an exception is returned to the client with a log message
+        
+        return True # only response code - no json
 
     # See https://console.bluemix.net/docs/services/AnalyticsEngine/Retrieve-service-credentials-and-service-end-points.html#obtaining-the-credentials-using-the-ibm-cloud-rest-api
     def create_credentials(self, instance_id, key_name, service_instance_name, role):
