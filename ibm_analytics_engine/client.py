@@ -155,6 +155,9 @@ class AnalyticsEngine(object):
         
     def create(self, data):
         return self.resource_controller.create(data)
+    
+    def delete(self, id):
+        return self.resource_controller.delete(id)
         
     def cluster_status(self, instance_id, wait_until_finished_preparing = False):
         if wait_until_finished_preparing is True:

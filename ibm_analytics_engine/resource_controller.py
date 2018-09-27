@@ -7,6 +7,11 @@ import time
 import requests
 import json
 
+try:
+    from urllib import quote  # Python 2.X
+except ImportError:
+    from urllib.parse import quote  # Python 3+
+
 # API Docs https://console.stage1.bluemix.net/apidocs/resource-controller
 class ResourceController:
 
@@ -23,9 +28,13 @@ class ResourceController:
         #TODO - 
         return
     
-    def delete(self, instance_id):
-        #TODO - 
-        return
+    def delete(self, id):
+        # TODO is replacing the forward slash the only encoding that is required?
+        urlsafe_id = id.replace('/', '%2F')
+        
+        url = self.region.rc_endpoint() + '/v1/resource_instances/' + urlsafe_id
+        response = self.client._request(url=url, http_method='delete', description='delete')
+        return response # only response code - no json
 
     # See https://console.bluemix.net/docs/services/AnalyticsEngine/Retrieve-service-credentials-and-service-end-points.html#obtaining-the-credentials-using-the-ibm-cloud-rest-api
     def create_credentials(self, instance_id, key_name, service_instance_name, role):
