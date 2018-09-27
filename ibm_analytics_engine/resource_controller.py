@@ -25,11 +25,6 @@ class ResourceController:
         return response.json()
     
     def list(self, region_id=None, resource_group=None, resource_plan_id=None):
-        
-        if region_id is None:
-            region_id = self.region
-            
-        if resource_plan_id
             
         #TODO - return the json response from the API call 
         return
