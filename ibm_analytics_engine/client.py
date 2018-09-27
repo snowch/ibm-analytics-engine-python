@@ -145,7 +145,13 @@ class AnalyticsEngine(object):
             "IAM-Apikey": self.api_key,
             }
         response = self._request(url=url, http_method='get', description='_get_account_id', additional_headers=headers)
-        return response.json()['account_id']
+        account_id = response.json()['account_id']
+        
+        # For some reason, returned value seems to be: XXXXXXXY-YYYY and we only need the first part
+        return account_id.split('-')[0][:-1]
+    
+    def get_resource_groups(self):
+        return self.resource_controller.get_resource_groups()
         
     def create(self, data):
         return self.resource_controller.create(data)

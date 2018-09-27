@@ -40,3 +40,15 @@ class ResourceController:
         response = self.client._request(url=url, http_method='post', description='create_credentials', data=data)
         return response.json()
         
+    # I found this api method by tracing the bx client, i.e. `IBMCLOUD_TRACE=true bx resource groups`
+    def get_resource_groups(self):
+        account_id = self.client._get_account_id()
+        
+        headers = { 
+            "IAM-Apikey": self.client.api_key,
+            }
+        
+        url = self.client.region.rm_endpoint() + '/v1/resource_groups?account_id=' + account_id
+        response = self.client._request(url=url, http_method='get', description='get_resource_groups', additional_headers=headers)
+        return response.json()
+ 

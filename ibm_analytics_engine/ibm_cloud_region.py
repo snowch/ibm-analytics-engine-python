@@ -37,5 +37,9 @@ class Region:
     def rc_endpoint(self):
         if   self.region == 'us-south': return 'https://resource-controller.ng.bluemix.net'
         elif self.region == 'uk-south': return 'https://resource-controller.eu-gb.bluemix.net'     
+        
+    def rm_endpoint(self):
+        if   self.region == 'us-south': return 'https://resource-manager.ng.bluemix.net'
+        elif self.region == 'uk-south': return 'https://resource-manager.eu-gb.bluemix.net' 
        
     
