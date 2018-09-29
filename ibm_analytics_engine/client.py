@@ -165,3 +165,6 @@ class AnalyticsEngine(object):
             return self.analytics_engines.poll_for_completion(instance_id)
         else:
             return self.analytics_engines.cluster_status(instance_id)
+
+    # TODO reset password
+    # https://console.bluemix.net/docs/services/AnalyticsEngine/reset-cluster-password.html#resetting-cluster-password
