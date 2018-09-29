@@ -11,24 +11,13 @@
 
 ----
 
-**WARNING: This project is deprecated due to a change in the API's used to manage IBM Analytics Engine.**
-
-----
-
 ### Overview
 
 This project is a python library (SDK) for working with [IBM Analytics Engine (IAE)](https://console.bluemix.net/docs/services/AnalyticsEngine/index.html).  
 
 #### Documentation
 
-Documentation can be found on [readthedocs](http://ibm-analytics-engine-python.readthedocs.io/en/latest/)
-
-Some example notebooks using this library:
-
- - [Creating a Cluster](docs/example_notebooks/CreateCluster.ipynb)
- - [Connecting a Jupyter Notebook](docs/example_notebooks/DockerExampleNB2KG.ipynb)
- 
-See a recording of these notebooks [in action](https://m.youtube.com/watch?t=1s&v=3plYcRHvV9w).  The recording has a few editing issues and no audio, but you should get the idea.
+See example [notebook](./Development.ipynb)
 
 ### Support
 
